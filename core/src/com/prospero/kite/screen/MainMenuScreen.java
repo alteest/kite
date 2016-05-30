@@ -1,7 +1,10 @@
 package com.prospero.kite.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -26,7 +29,8 @@ public class MainMenuScreen implements Screen {
         TextureFactory.init();
 
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);// Make the stage consume events
+        Gdx.input.setInputProcessor(stage);
+		Gdx.input.setCatchBackKey(false);
 
         createBasicSkin();
         TextButton newGameButton = new TextButton("New game", skin);
@@ -60,6 +64,8 @@ public class MainMenuScreen implements Screen {
             };
         });        
         stage.addActor(settingsButton);
+
+        //Gdx.input.setInputProcessor(this);
         
     }
 
@@ -129,5 +135,4 @@ public class MainMenuScreen implements Screen {
 		// TODO Auto-generated method stub
 
 	}
-
 }
