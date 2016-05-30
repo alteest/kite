@@ -27,15 +27,20 @@ public class PlanetScreen extends ObjectScreen {
         stage.addActor(background);
         stage.addActor(label);
         stringBuilder = new StringBuilder();
-        
-        cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        cam.position.set(0f, planet.getRadius(), 10f);
+
+        float dist = 2 * planet.getRadius();
+        float d = planet.getRadius() / 3;
+        cam = new PerspectiveCamera(9.6f, planet.getRadius(), 2 * d);
+        cam.position.set(planet.getRadius() - d, dist, 0f);
         cam.lookAt(0f, planet.getRadius(), 0f);
-        cam.near = 1f;
+        cam.near = 0.1f;
         cam.far = 300f;
         cam.update();
          
-        camController = new SpaceSystemCameraInputController(cam, 3 * planet.getRadius() / 4, 5 * planet.getRadius() / 4);
+        camController = new SpaceSystemCameraInputController(cam, 3 * dist / 4, 50 * dist / 4);
+        //camController.scrollFactor = -planet.getRadius() / 200f;
+        camController.scrollFactor = -planet.getRadius() / 20f;
+        camController.rotateAngle = -90;
         Gdx.input.setInputProcessor(new InputMultiplexer(this, camController));
 
 		modelBatch = new ModelBatch();
@@ -77,7 +82,7 @@ public class PlanetScreen extends ObjectScreen {
 
 	@Override
 	public boolean keyDown(int keycode) {
-        if(keycode == Keys.BACK){
+        if((keycode == Keys.BACK) || (keycode == Keys.ESCAPE)) {
         	game.setScreen(new SpaceSystemScreen(game, (SpaceSystem) object.getParent()));
         	return true;
             //if (shouldReallyQuit)

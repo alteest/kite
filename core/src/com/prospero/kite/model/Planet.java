@@ -20,7 +20,7 @@ public class Planet extends Sphere {
 		this.distance = distance;
 		loadModel();
 		
-		addStation(new Station("Station1", r + 1f, 90f, 0.2f));
+		addStation(new Station("Station1", 1.2f * r / 2, MathUtils.PI / 2, 0.1f));
 	}
 
 	public void addStation(Station station) {

@@ -153,7 +153,6 @@ public class SpaceSystemScreen extends ObjectScreen {
 
 	@Override
 	public boolean scrolled(int amount) {
-		System.out.print("scrolled");
 		// TODO Auto-generated method stub
 		return false;
 	}
