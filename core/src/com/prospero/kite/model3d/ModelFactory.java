@@ -35,12 +35,26 @@ public class ModelFactory {
 		return model;
 	}
 
+	public static Model getSphereLines(float r) {
+		String name = "spherelines_" + Float.toString(r);
+		Model model = getModel(name);
+		if (model == null) {
+		    model = modelBuilder.createSphere(r, r, r, 10, 10, 
+					GL20.GL_LINES,
+		    		new Material(),
+		    		Usage.Position | Usage.Normal | Usage.TextureCoordinates);
+		    models.put(name, model);
+		}
+		return model;
+	}
+	
 	public static Model getCircle(float r) {
 		String name = "circle_" + Float.toString(r);
 		Model model = getModel(name);
 		if (model == null) {
 			model = createCircle(r, 50,
-					GL20.GL_LINES, new Material(),
+					GL20.GL_LINES,
+					new Material(),
 					Usage.Position | Usage.Normal | Usage.TextureCoordinates);
 		    models.put(name, model);
 		}

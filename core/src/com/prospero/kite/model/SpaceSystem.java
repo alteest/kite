@@ -26,9 +26,9 @@ public class SpaceSystem extends GO {
 	}
 
 	@Override
-	public void render(ModelBatch modelBatch, Environment environment) {
+	public void render(ModelBatch modelBatch, Environment environment, GO parent) {
 		for (GO obj : staticObjects) {
-			obj.render(modelBatch, environment);
+			obj.render(modelBatch, environment, parent);
 		}
 	}
 	

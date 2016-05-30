@@ -61,6 +61,10 @@ public abstract class GO {
 		parent = obj;
 	}
 
+	public GO getParent() {
+		return parent;
+	}
+	
 	public Vector3 getCenter() {
 		return new Vector3().set(x, y, z);
 	}
@@ -72,7 +76,7 @@ public abstract class GO {
 		return name;
 	}
 	
-	public void render(ModelBatch modelBatch, Environment environment) {}
+	public void render(ModelBatch modelBatch, Environment environment, GO parent) {}
 
     protected void calculateCoordinates() {
     	instance.calculateBoundingBox(bounds);

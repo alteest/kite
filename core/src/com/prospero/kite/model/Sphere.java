@@ -26,7 +26,6 @@ public abstract class Sphere extends GO {
 
         NodePart blockPart = instance.nodes.get(0).parts.get(0);
 
-
         if (texture != null) {
             Attribute attribute = TextureAttribute.createDiffuse(TextureFactory.getTexture(texture));
             blockPart.material.set(attribute);
@@ -42,7 +41,5 @@ public abstract class Sphere extends GO {
             shader = new DefaultShader(renderable, new DefaultShader.Config(vert, frag));
             shader.init();
         } 
-
-
 	}
 }

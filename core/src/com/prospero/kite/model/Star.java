@@ -11,7 +11,7 @@ public class Star extends Sphere {
 	}
 	
 	@Override
-	public void render(ModelBatch modelBatch, Environment environment) {
+	public void render(ModelBatch modelBatch, Environment environment, GO parent) {
 		//modelBatch.render(instance, shader);
 		modelBatch.render(instance);
 	}
