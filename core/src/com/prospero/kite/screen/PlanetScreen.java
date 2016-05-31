@@ -14,10 +14,13 @@ import com.prospero.kite.Kite;
 import com.prospero.kite.model.GO;
 import com.prospero.kite.model.Planet;
 import com.prospero.kite.model.SpaceSystem;
+import com.prospero.kite.model.Station;
+import com.prospero.kite.screen.menu.StationTypeSelectionMenu;
 
 public class PlanetScreen extends ObjectScreen {
 
 	private Stage menuStage = new Stage();
+	private InputMultiplexer inputController;
 	
 	public PlanetScreen(final Kite game, final Planet planet) {
 		super(game, planet);
@@ -39,25 +42,31 @@ public class PlanetScreen extends ObjectScreen {
         cam = new DegreePerspectiveCamera(2 * degree, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         ((DegreePerspectiveCamera) cam).setInitValues(new Vector3(0f, -2 * dist, r), 45f);
         cam.lookAt(0f, 0f, r);
-        cam.near = 0.1f * Kite.multi;
+        cam.near = 0.2f * Kite.multi;
         cam.far = 20 * dist;
         cam.update();
         
         camController = new SpaceSystemCameraInputController(cam, 3 * dist / 4, 50 * dist / 4);
         camController.scrollFactor = -r / 20f;
         camController.rotateAngle = 90;
-        Gdx.input.setInputProcessor(new InputMultiplexer(this, camController));
+
+        inputController = new InputMultiplexer(this, camController);
 
 		modelBatch = new ModelBatch();
 		
-		menuStage.addActor(MenuBuilder.buildMenu(this));
 	}
 
 	@Override
 	public void render(float delta) {
 		super.render(delta);
 		if (selectedObj != null) {
+			menuStage.clear();
+			StationTypeSelectionMenu menu = new StationTypeSelectionMenu("", game.getSkin(), (Station) selectedObj);
+			menuStage.addActor(menu);
+	        Gdx.input.setInputProcessor(menuStage);
 			menuStage.draw();
+		} else {
+	        Gdx.input.setInputProcessor(new InputMultiplexer(this, camController));
 		}
 	}
 	
@@ -113,5 +122,5 @@ public class PlanetScreen extends ObjectScreen {
     public GO getObject (int screenX, int screenY) {
         Ray ray = cam.getPickRay(screenX, screenY);
         return ((Planet) object).getObject(ray);
-    }	
+    }
 }

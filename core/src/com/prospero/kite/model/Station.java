@@ -8,12 +8,6 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.math.MathUtils;
 import com.prospero.kite.model3d.ModelFactory;
 
-enum StationType {
-    Unknown,
-    Station1,
-    Station2;
-}
-
 public class Station extends GO {
 
 	ModelInstance orbit = null;
