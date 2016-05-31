@@ -41,7 +41,7 @@ public class SpaceSystemScreen extends ObjectScreen {
         cam.update();
          
         camController = new SpaceSystemCameraInputController(cam, 7f * Kite.multi, 17f * Kite.multi);
-        camController.scrollFactor = camController.scrollFactor * Kite.multi;
+        camController.scrollFactor = camController.scrollFactor * Kite.multi * 20;
         Gdx.input.setInputProcessor(new InputMultiplexer(this, camController));
 
 		modelBatch = new ModelBatch();

@@ -47,7 +47,7 @@ public class PlanetScreen extends ObjectScreen {
         cam.update();
         
         camController = new SpaceSystemCameraInputController(cam, 3 * dist / 4, 50 * dist / 4);
-        camController.scrollFactor = -r / 20f;
+        camController.scrollFactor = -r;
         camController.rotateAngle = 90;
 
         inputController = new InputMultiplexer(this, camController);
@@ -61,7 +61,7 @@ public class PlanetScreen extends ObjectScreen {
 		super.render(delta);
 		if (selectedObj != null) {
 			menuStage.clear();
-			StationTypeSelectionMenu menu = new StationTypeSelectionMenu("", game.getSkin(), (Station) selectedObj);
+			StationTypeSelectionMenu menu = new StationTypeSelectionMenu("", game.getSkin(), this);
 			menuStage.addActor(menu);
 	        Gdx.input.setInputProcessor(menuStage);
 			menuStage.draw();

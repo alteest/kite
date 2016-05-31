@@ -33,6 +33,14 @@ public class Planet extends Sphere {
 		stations.add(station);
 	}
 	
+	public void replaceStation(Station origStation, Station newStation) {
+		int i = stations.indexOf(origStation, true);
+		if (i > -1) {
+			stations.set(i, newStation);
+			newStation.setParent(this);
+		}
+	}
+	
 	@Override
 	protected void loadModel() {
 		super.loadModel();

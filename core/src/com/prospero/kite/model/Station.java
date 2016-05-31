@@ -11,12 +11,14 @@ import com.prospero.kite.model3d.ModelFactory;
 public class Station extends GO {
 
 	ModelInstance orbit = null;
-	private float distance = 0;
+	protected final float distance;
+	protected final float position;
 	protected StationType type = StationType.Unknown;
 	
 	public Station(String name, float distance, float position, float r) {
 		super(name, distance * MathUtils.sin(MathUtils.degreesToRadians * position), 0f, distance * MathUtils.cos(MathUtils.degreesToRadians * position), r);
 		this.distance = distance;
+		this.position = position;
 		initModel();
 	}
 

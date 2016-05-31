@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 
 public abstract class GO {
+
 	protected boolean owner;
 	protected GO parent = null;
 
@@ -21,7 +22,6 @@ public abstract class GO {
 	protected float radius;
     protected static BoundingBox bounds = new BoundingBox();
     
-
 	protected ModelInstance instance = null;
     protected Shader shader = null;
     

@@ -23,9 +23,8 @@ public abstract class ObjectScreen implements Screen, InputProcessor {
 
 	final Kite game;
 	GO object = null;
-	protected GO selectedObj = null;
+	public GO selectedObj = null;
 
-	
 	protected Stage stage;
 	protected Label label;
 	protected BitmapFont font;

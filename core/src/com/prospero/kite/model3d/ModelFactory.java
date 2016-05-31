@@ -3,13 +3,18 @@ package com.prospero.kite.model3d;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.Files.FileType;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.g3d.utils.MeshPartBuilder;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.UBJsonReader;
+import com.prospero.kite.model.StationType;
 
 public class ModelFactory {
 
@@ -83,6 +88,18 @@ public class ModelFactory {
     	return modelBuilder.end();
     }
 
+	public static Model getStation(StationType type) {
+		String name = "station_" + type.toString();
+		Model model = getModel(name);
+		if (model == null) {
+	        UBJsonReader jsonReader = new UBJsonReader();
+	        G3dModelLoader modelLoader = new G3dModelLoader(jsonReader);
+	        model = modelLoader.loadModel(Gdx.files.getFileHandle("data/Station.g3db", FileType.Internal));
+		    models.put(name, model);
+		}
+		return model;
+	}
+    
 //  @SuppressWarnings("deprecation")
 //  private static Model createEllipse(float width, float height, float innerWidth, float innerHeight, int divisions, int primitiveType, float angleFrom, float angleTo, final Material material, final long attributes) {
 //    	modelBuilder.begin();
