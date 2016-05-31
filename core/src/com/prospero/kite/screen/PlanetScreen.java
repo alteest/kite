@@ -4,17 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.prospero.kite.Kite;
+import com.prospero.kite.model.GO;
 import com.prospero.kite.model.Planet;
 import com.prospero.kite.model.SpaceSystem;
 
 public class PlanetScreen extends ObjectScreen {
 
+	private Stage menuStage = new Stage();
+	
 	public PlanetScreen(final Kite game, final Planet planet) {
 		super(game, planet);
 
@@ -28,22 +32,33 @@ public class PlanetScreen extends ObjectScreen {
         stage.addActor(label);
         stringBuilder = new StringBuilder();
 
-        float dist = 2 * planet.getRadius();
-        float d = planet.getRadius() / 3;
-        cam = new PerspectiveCamera(9.6f, planet.getRadius(), 2 * d);
-        cam.position.set(planet.getRadius() - d, dist, 0f);
-        cam.lookAt(0f, planet.getRadius(), 0f);
-        cam.near = 0.1f;
-        cam.far = 300f;
+        float r = planet.getRadius();
+        float dist = 2 * r;
+        float d = r / 3;
+        float degree = (float) Math.toDegrees(Math.asin(d / dist));
+        cam = new DegreePerspectiveCamera(2 * degree, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        ((DegreePerspectiveCamera) cam).setInitValues(new Vector3(0f, -2 * dist, r), 45f);
+        cam.lookAt(0f, 0f, r);
+        cam.near = 0.1f * Kite.multi;
+        cam.far = 20 * dist;
         cam.update();
-         
+        
         camController = new SpaceSystemCameraInputController(cam, 3 * dist / 4, 50 * dist / 4);
-        //camController.scrollFactor = -planet.getRadius() / 200f;
-        camController.scrollFactor = -planet.getRadius() / 20f;
-        camController.rotateAngle = -90;
+        camController.scrollFactor = -r / 20f;
+        camController.rotateAngle = 90;
         Gdx.input.setInputProcessor(new InputMultiplexer(this, camController));
 
 		modelBatch = new ModelBatch();
+		
+		menuStage.addActor(MenuBuilder.buildMenu(this));
+	}
+
+	@Override
+	public void render(float delta) {
+		super.render(delta);
+		if (selectedObj != null) {
+			menuStage.draw();
+		}
 	}
 	
 	@Override
@@ -81,13 +96,22 @@ public class PlanetScreen extends ObjectScreen {
 	}
 
 	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		selectedObj = getObject(screenX, screenY);
+		return selectedObj != null;
+	}
+	
+	@Override
 	public boolean keyDown(int keycode) {
         if((keycode == Keys.BACK) || (keycode == Keys.ESCAPE)) {
         	game.setScreen(new SpaceSystemScreen(game, (SpaceSystem) object.getParent()));
         	return true;
-            //if (shouldReallyQuit)
-            //  Gdx.app.exit();
          }
          return false;
 	}
+
+    public GO getObject (int screenX, int screenY) {
+        Ray ray = cam.getPickRay(screenX, screenY);
+        return ((Planet) object).getObject(ray);
+    }	
 }

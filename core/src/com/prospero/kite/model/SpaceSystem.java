@@ -6,13 +6,14 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
+import com.prospero.kite.Kite;
 
 public class SpaceSystem extends GO {
 	static int w = 1000;
 	static int h = 1000;
 	
 	protected Array<GO> staticObjects = new Array<GO>();
-	private Vector3 position = new Vector3();
+	private final Vector3 position = new Vector3();
 
 	public void addStaticObject(GO obj) {
 		obj.setParent(this);
@@ -20,9 +21,9 @@ public class SpaceSystem extends GO {
 	}
 	
 	public void generate() {
-		addStaticObject(new Star("Star1", "Ako", 1.5f));
-		addStaticObject(new Planet("Planet1", "Song", 2f, 1f, 0.6f));
-		addStaticObject(new Planet("Planet2", "Rim", 4.5f, 2.5f, 1f));
+		addStaticObject(new Star("Star1", "Ako", 0.8f * Kite.multi));
+		addStaticObject(new Planet("Planet1", "Song", 2f * Kite.multi, 60f, 0.3f * Kite.multi));
+		addStaticObject(new Planet("Planet2", "Rim", 4.5f * Kite.multi, 135f, 0.5f * Kite.multi));
 	}
 
 	@Override

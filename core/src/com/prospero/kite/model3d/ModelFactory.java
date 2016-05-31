@@ -27,7 +27,7 @@ public class ModelFactory {
 		String name = "sphere_" + Float.toString(r);
 		Model model = getModel(name);
 		if (model == null) {
-		    model = modelBuilder.createSphere(r, r, r, 100, 100, 
+		    model = modelBuilder.createSphere(2 * r, 2 * r, 2 * r, 100, 100, 
 		    		new Material(),
 		    		Usage.Position | Usage.Normal | Usage.TextureCoordinates);
 		    models.put(name, model);
@@ -39,7 +39,7 @@ public class ModelFactory {
 		String name = "spherelines_" + Float.toString(r);
 		Model model = getModel(name);
 		if (model == null) {
-		    model = modelBuilder.createSphere(r, r, r, 5, 5, 
+		    model = modelBuilder.createSphere(2 * r, 2 * r, 2 * r, 8, 8, 
 					GL20.GL_LINES,
 		    		new Material(),
 		    		Usage.Position | Usage.Normal | Usage.TextureCoordinates);

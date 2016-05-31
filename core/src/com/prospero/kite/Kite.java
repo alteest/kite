@@ -7,6 +7,11 @@ import com.prospero.kite.screen.MainMenuScreen;
 
 public class Kite extends Game {
 	protected User user;
+	public final static int multi = 100;
+	
+	public Kite() {
+		super();
+	}
 	
 	@Override
 	public void create () {

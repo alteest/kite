@@ -28,7 +28,6 @@ public class SpaceSystemCameraInputController extends CameraInputController {
 	protected boolean process(float deltaX, float deltaY, int button) {
 		if (button == rotateButton) {
 			deltaY = 0f;
-			//float degree = Math.toDegrees(Math.atan2(target.y - y, target.x - x));
 		}
 	    return super.process(deltaX, deltaY, button);
 	}

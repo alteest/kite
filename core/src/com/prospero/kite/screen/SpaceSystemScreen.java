@@ -17,8 +17,6 @@ import com.prospero.kite.model.SpaceSystem;
 
 public class SpaceSystemScreen extends ObjectScreen {
 
-	private GO selectedObj = null;
-	
 	public SpaceSystemScreen(final Kite game, SpaceSystem spaceSystem) {
 		super(game, spaceSystem);
 
@@ -35,18 +33,15 @@ public class SpaceSystemScreen extends ObjectScreen {
         //stage = new Stage(new ScreenViewport());
         //stage.addActor(background);
 
-        //cam = new SpaceSystemCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        cam.position.set(6f, 8f, 6f);
-        cam.lookAt(0,0,0);
-        cam.near = 1f;
-        cam.far = 300f;
+        cam.position.set(6f * Kite.multi, 8f * Kite.multi, 6f * Kite.multi);
+        cam.lookAt(0, 0, 0);
+        cam.near = 1f * Kite.multi;
+        cam.far = 300f * Kite.multi;
         cam.update();
          
-        //camController = new CameraInputController(cam);
-        camController = new SpaceSystemCameraInputController(cam, 7f, 17f);
-        //InputMultiplexer im = new InputMultiplexer();
-        //im.addProcessor(camController);
+        camController = new SpaceSystemCameraInputController(cam, 7f * Kite.multi, 17f * Kite.multi);
+        camController.scrollFactor = camController.scrollFactor * Kite.multi;
         Gdx.input.setInputProcessor(new InputMultiplexer(this, camController));
 
 		modelBatch = new ModelBatch();
@@ -95,7 +90,7 @@ public class SpaceSystemScreen extends ObjectScreen {
 
 	@Override
 	public boolean keyDown(int keycode) {
-        if(keycode == Keys.BACK){
+        if(keycode == Keys.BACK || keycode == Keys.ESCAPE){
         	game.setScreen(new MainMenuScreen(game));
         	return true;
             //if (shouldReallyQuit)

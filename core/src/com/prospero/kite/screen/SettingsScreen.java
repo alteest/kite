@@ -53,7 +53,7 @@ public class SettingsScreen extends ObjectScreen {
 
 		Skin skin;
 		Stage stage;
-		//Texture texture1;
+		Texture texture1;
 		//Texture texture2;
 		Label fpsLabel;
 	
@@ -70,11 +70,11 @@ public class SettingsScreen extends ObjectScreen {
 
 		skin.load(fileHandle);		
 
-//		texture1 = new Texture(Gdx.files.internal("images/planet_1_d.png"));
+		texture1 = new Texture(Gdx.files.internal("images/planet_1_d.png"));
 //		texture2 = new Texture(Gdx.files.internal("images/planet_2_d.png"));
-//		TextureRegion image = new TextureRegion(texture1);
-//		TextureRegion imageFlipped = new TextureRegion(image);
-//		imageFlipped.flip(true, true);
+		TextureRegion image = new TextureRegion(texture1);
+		TextureRegion imageFlipped = new TextureRegion(image);
+		imageFlipped.flip(true, true);
 //		TextureRegion image2 = new TextureRegion(texture2);
 		// stage = new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false, new PolygonSpriteBatch());
 
@@ -83,14 +83,14 @@ public class SettingsScreen extends ObjectScreen {
 
 		// Group.debug = true;
 
-//		ImageButtonStyle style = new ImageButtonStyle(skin.get(ButtonStyle.class));
-//		style.imageUp = new TextureRegionDrawable(image);
-//		style.imageDown = new TextureRegionDrawable(imageFlipped);
-//		ImageButton iconButton = new ImageButton(style);
+		ImageButtonStyle style = new ImageButtonStyle(skin.get(ButtonStyle.class));
+		style.imageUp = new TextureRegionDrawable(image);
+		style.imageDown = new TextureRegionDrawable(imageFlipped);
+		ImageButton iconButton = new ImageButton(style);
 
-//		Button buttonMulti = new TextButton("Multi\nLine\nToggle", skin, "toggle");
-//		Button imgButton = new Button(new Image(image), skin);
-//		Button imgToggleButton = new Button(new Image(image), skin, "toggle");
+		Button buttonMulti = new TextButton("Multi\nLine\nToggle", skin, "toggle");
+		Button imgButton = new Button(new Image(image), skin);
+		Button imgToggleButton = new Button(new Image(image), skin, "toggle");
 
 		Label myLabel = new Label("this is some text.", skin);
 		myLabel.setWrap(true);
@@ -137,7 +137,7 @@ public class SettingsScreen extends ObjectScreen {
 		passwordTextField.setPasswordCharacter('*');
 		passwordTextField.setPasswordMode(true);
 		
-//		buttonMulti.addListener(new TextTooltip("This is a tooltip! This is a tooltip! This is a tooltip! This is a tooltip! This is a tooltip! This is a tooltip!", skin));
+		buttonMulti.addListener(new TextTooltip("This is a tooltip! This is a tooltip! This is a tooltip! This is a tooltip! This is a tooltip! This is a tooltip!", skin));
 //		Table tooltipTable = new Table(skin);
 //		tooltipTable.pad(10).background("default-round");
 //		tooltipTable.add(new TextButton("Fancy tooltip!", skin));
@@ -149,11 +149,11 @@ public class SettingsScreen extends ObjectScreen {
 		window.setPosition(0, 0);
 		window.defaults().spaceBottom(10);
 		window.row().fill().expandX();
-//		window.add(iconButton);
-//		window.add(buttonMulti);
-//		window.add(imgButton);
-//		window.add(imgToggleButton);
-//		window.row();
+		window.add(iconButton);
+		window.add(buttonMulti);
+		window.add(imgButton);
+		window.add(imgToggleButton);
+		window.row();
 //		window.add(checkBox);
 //		window.add(slider).minWidth(100).fillX().colspan(3);
 		window.row();

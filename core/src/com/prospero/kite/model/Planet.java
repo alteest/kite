@@ -5,8 +5,12 @@ import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
+import com.prospero.kite.Kite;
 import com.prospero.kite.model3d.ModelFactory;
 
 public class Planet extends Sphere {
@@ -14,13 +18,14 @@ public class Planet extends Sphere {
 	private float distance = 0;
 	ModelInstance orbit = null;
 	protected Array<Station> stations = new Array<Station>();
+	private final Vector3 position = new Vector3();
 	
 	public Planet(String name, String texture, float distance, float position, float r) {
-		super(name, texture, distance * MathUtils.sin(position), 0f, distance * MathUtils.cos(position), r);
+		super(name, texture, distance * MathUtils.sin(MathUtils.degreesToRadians * position), 0f, distance * MathUtils.cos(MathUtils.degreesToRadians * position), r);
 		this.distance = distance;
 		loadModel();
 		
-		addStation(new Station("Station1", 1.2f * r / 2, MathUtils.PI / 2, 0.1f));
+		addStation(new Station("Station1", 1.05f * r, 0f, 0.02f * Kite.multi));
 	}
 
 	public void addStation(Station station) {
@@ -50,4 +55,22 @@ public class Planet extends Sphere {
 			modelBatch.render(orbit);
 		}
 	}
+
+    public GO getObject(Ray ray) {
+        GO result = null;
+        float distance = -1;
+        for (int i = 0; i < stations.size; ++i) {
+            final GO obj = stations.get(i);
+            obj.instance.transform.getTranslation(position);
+            //position.add(obj.getCenter());
+            position.add(obj.center);
+            float dist2 = ray.origin.dst2(position);
+            if (distance >= 0f && dist2 > distance) continue;
+            if (Intersector.intersectRaySphere(ray, position, obj.radius, null)) {
+                result = obj;
+                distance = dist2;
+            }
+        }
+        return result;
+    }	
 }
