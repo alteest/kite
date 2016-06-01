@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -40,8 +41,9 @@ public class SpaceSystemScreen extends ObjectScreen {
         cam.far = 300f * Kite.multi;
         cam.update();
          
-        camController = new SpaceSystemCameraInputController(cam, 7f * Kite.multi, 17f * Kite.multi);
-        camController.scrollFactor = camController.scrollFactor * Kite.multi * 20;
+        camController = new SpaceSystemCameraInputController(cam, 5f * Kite.multi, 25f * Kite.multi);
+        camController.lookAt3 = new Vector3(0f, 0f, 0f);
+        camController.scrollFactor = camController.scrollFactor * Kite.multi;
         Gdx.input.setInputProcessor(new InputMultiplexer(this, camController));
 
 		modelBatch = new ModelBatch();

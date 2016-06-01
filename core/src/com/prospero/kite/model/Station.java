@@ -32,8 +32,14 @@ public class Station extends GO {
 
 	@Override
 	public void render(ModelBatch modelBatch, Environment environment, GO parent) {
-		modelBatch.render(instance);
-		modelBatch.render(orbit);
+		if (this.equals(parent)) {
+			instance.transform.setToTranslation(0, 0, 0);
+			modelBatch.render(instance);
+		} else {
+			instance.transform.setToTranslation(x, y, z);
+			modelBatch.render(instance);
+			modelBatch.render(orbit);
+		}
 	}
 
 	public StationType getStationType() {

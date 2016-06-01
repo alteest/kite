@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.Renderable;
 import com.badlogic.gdx.graphics.g3d.Shader;
-import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.RenderContext;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -31,7 +30,7 @@ public abstract class ObjectScreen implements Screen, InputProcessor {
 	protected StringBuilder stringBuilder;
 
 	public Camera cam;
-    public CameraInputController camController;
+    public SpaceSystemCameraInputController camController;
     public Shader shader;
     public RenderContext renderContext;
     public Model model;
@@ -64,14 +63,20 @@ public abstract class ObjectScreen implements Screen, InputProcessor {
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
-        stringBuilder.setLength(0);
-        stringBuilder.append(" FPS: ").append(Gdx.graphics.getFramesPerSecond());
-        label.setText(stringBuilder);
-        stage.draw();        
+        if (stringBuilder != null) {
+        	stringBuilder.setLength(0);
+        	stringBuilder.append(" FPS: ").append(Gdx.graphics.getFramesPerSecond());
+        	label.setText(stringBuilder);
+        }
+        if (stage != null) {
+        	stage.draw();
+        }
 
-        modelBatch.begin(cam);
-		object.render(modelBatch, environment, object);
-        modelBatch.end();
+        if (modelBatch != null) {
+        	modelBatch.begin(cam);
+        	object.render(modelBatch, environment, object);
+        	modelBatch.end();
+        }
 	}		
 
 	@Override

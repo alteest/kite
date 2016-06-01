@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
-import com.prospero.kite.Kite;
 import com.prospero.kite.model3d.ModelFactory;
 
 public class Planet extends Sphere {
@@ -24,8 +23,6 @@ public class Planet extends Sphere {
 		super(name, texture, distance * MathUtils.sin(MathUtils.degreesToRadians * position), 0f, distance * MathUtils.cos(MathUtils.degreesToRadians * position), r);
 		this.distance = distance;
 		loadModel();
-		
-		addStation(new Station("Station1", 1.05f * r, 0f, 0.02f * Kite.multi));
 	}
 
 	public void addStation(Station station) {
@@ -34,10 +31,12 @@ public class Planet extends Sphere {
 	}
 	
 	public void replaceStation(Station origStation, Station newStation) {
-		int i = stations.indexOf(origStation, true);
-		if (i > -1) {
-			stations.set(i, newStation);
-			newStation.setParent(this);
+		if (newStation != null) {
+			int i = stations.indexOf(origStation, true);
+			if (i > -1) {
+				stations.set(i, newStation);
+				newStation.setParent(this);
+			}
 		}
 	}
 	

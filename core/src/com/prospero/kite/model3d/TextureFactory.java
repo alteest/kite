@@ -3,6 +3,7 @@ package com.prospero.kite.model3d;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 
@@ -24,7 +25,7 @@ public class TextureFactory {
 			textures.put("Blink", new Texture("images/planet_blink_1600.jpg"));
 			textures.put("Cerca Trova", new Texture("images/planet_Cerca_Trova_1600.jpg"));
 			textures.put("Miners Moon", new Texture("images/planet_Miners_Moon_1600.jpg"));
-			textures.put("Serendip", new Texture("images/planet_serendip_1600.jpg"));
+			textures.put("Serendip", new Texture(Gdx.files.internal("images/planet_serendip_1600.jpg"), true));
 			textures.put("Song", new Texture("images/planet_Song_1600.jpg"));
 			textures.put("Tao Seti", new Texture("images/planet_Tao_Seti_1600.jpg"));
 			textures.put("Wight", new Texture("images/planet_Wight_1600.jpg"));

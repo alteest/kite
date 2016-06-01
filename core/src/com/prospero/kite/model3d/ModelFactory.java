@@ -3,23 +3,25 @@ package com.prospero.kite.model3d;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.ModelLoader;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
+import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.utils.MeshPartBuilder;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.UBJsonReader;
 import com.prospero.kite.model.StationType;
 
 public class ModelFactory {
 
 	private static ModelBuilder modelBuilder = new ModelBuilder();
 	private static Map<String, Model> models = new HashMap<String, Model>();
+	private static AssetManager assets = new AssetManager();
+
 
 	private static Model getModel(String name) {
 		if (models.containsKey(name)) {
@@ -32,7 +34,7 @@ public class ModelFactory {
 		String name = "sphere_" + Float.toString(r);
 		Model model = getModel(name);
 		if (model == null) {
-		    model = modelBuilder.createSphere(2 * r, 2 * r, 2 * r, 100, 100, 
+		    model = modelBuilder.createSphere(2 * r, 2 * r, 2 * r, 150, 150, 
 		    		new Material(),
 		    		Usage.Position | Usage.Normal | Usage.TextureCoordinates);
 		    models.put(name, model);
@@ -92,12 +94,22 @@ public class ModelFactory {
 		String name = "station_" + type.toString();
 		Model model = getModel(name);
 		if (model == null) {
-	        UBJsonReader jsonReader = new UBJsonReader();
-	        G3dModelLoader modelLoader = new G3dModelLoader(jsonReader);
-	        model = modelLoader.loadModel(Gdx.files.getFileHandle("data/Station.g3db", FileType.Internal));
-		    models.put(name, model);
+			//assets.load("data/Station.g3dj", Model.class);
+			//assets.finishLoadingAsset("data/Station.g3dj");
+			//assets.finishLoading();
+			//model = assets.get("data/Station.g3dj");
+
+			//ModelLoader loader = new ObjLoader();
+	        //model = loader.loadModel(Gdx.files.internal("data/ship.obj"));
+
+	        ModelLoader loader = new ObjLoader();
+	        model = loader.loadModel(Gdx.files.internal("models/TARDIS-FIGR_mkIII_station.obj"));
+	        
+			models.put(name, model);
 		}
 		return model;
+
+				
 	}
     
 //  @SuppressWarnings("deprecation")
