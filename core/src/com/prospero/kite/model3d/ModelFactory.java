@@ -94,16 +94,16 @@ public class ModelFactory {
 		String name = "station_" + type.toString();
 		Model model = getModel(name);
 		if (model == null) {
-			//assets.load("data/Station.g3dj", Model.class);
-			//assets.finishLoadingAsset("data/Station.g3dj");
-			//assets.finishLoading();
-			//model = assets.get("data/Station.g3dj");
+			assets.load("data/Station.g3dj", Model.class);
+			assets.finishLoadingAsset("data/Station.g3dj");
+			assets.finishLoading();
+			model = assets.get("data/Station.g3dj");
 
 			//ModelLoader loader = new ObjLoader();
 	        //model = loader.loadModel(Gdx.files.internal("data/ship.obj"));
 
-	        ModelLoader loader = new ObjLoader();
-	        model = loader.loadModel(Gdx.files.internal("models/TARDIS-FIGR_mkIII_station.obj"));
+	        //ModelLoader loader = new ObjLoader();
+	        //model = loader.loadModel(Gdx.files.internal("models/TARDIS-FIGR_mkIII_station.obj"));
 	        
 			models.put(name, model);
 		}

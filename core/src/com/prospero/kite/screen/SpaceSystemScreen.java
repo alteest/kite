@@ -127,7 +127,8 @@ public class SpaceSystemScreen extends ObjectScreen {
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if (selectedObj != null) {
 			if (selectedObj.getClass() == Planet.class) {
-				game.setScreen(new PlanetScreen(game, (Planet) selectedObj));
+				//game.setScreen(new PlanetScreen(game, (Planet) selectedObj));
+				game.setScreen(new StaticPlanetScreen(game, (Planet) selectedObj));
 			}
 		}
 		return false;

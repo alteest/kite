@@ -48,9 +48,9 @@ public class PlanetScreen extends ObjectScreen {
         cam.far = 20 * dist;
         cam.update();
         
-        camController = new SpaceSystemCameraInputController(cam, 5 * dist / 6, 8 * dist / 6);
+        camController = new SpaceSystemCameraInputController(cam, 5 * dist / 6, 8000 * dist / 6);
         camController.lookAt2 = new Vector2(0f, r);
-        //camController.scrollFactor = camController.scrollFactor;
+        camController.scrollFactor = camController.scrollFactor * 50;
         camController.rotateAngle = 90;
 
         inputController = new InputMultiplexer(this, camController);

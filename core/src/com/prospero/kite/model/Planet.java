@@ -52,14 +52,14 @@ public class Planet extends Sphere {
 		//modelBatch.render(instance, shader);
 		if (this.equals(parent)) {
 			instance.transform.setToTranslation(0, 0, 0);
-			modelBatch.render(instance);
+			modelBatch.render(instance, environment);
 			for (Station station : stations) {
 				station.render(modelBatch, environment, parent);
 			}
 		} else {
 			instance.transform.setToTranslation(x, y, z);
-			modelBatch.render(instance);
-			modelBatch.render(orbit);
+			modelBatch.render(instance, environment);
+			modelBatch.render(orbit, environment);
 		}
 	}
 

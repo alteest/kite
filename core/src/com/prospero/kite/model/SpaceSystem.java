@@ -24,7 +24,7 @@ public class SpaceSystem extends GO {
 		Planet planet1 = new Planet("Planet1", "Song", 2f * Kite.multi, 60f, 0.25f * Kite.multi);
 		addStaticObject(planet1);
 
-		Planet planet2 = new Planet("Planet2", "Serendip", 4.5f * Kite.multi, 215f, 0.4f * Kite.multi);
+		Planet planet2 = new Planet("Planet2", "Bog1200", 4.5f * Kite.multi, 215f, 0.4f * Kite.multi);
 
 		Station station21 = new Station("Station21", 1.05f * 0.4f * Kite.multi, 0f, 0.02f * Kite.multi);
 		planet2.addStation(station21);
