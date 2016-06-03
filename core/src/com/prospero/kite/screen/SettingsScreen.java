@@ -38,12 +38,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.prospero.kite.Kite;
+import com.prospero.kite.screen.old3d.ObjectScreen3d;
 
 //com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 //	dialogDim: { name: white, color: { r: 0, g: 0, b: 0, a: 0.45 } },
 //},
 
-public class SettingsScreen extends ObjectScreen {
+public class SettingsScreen extends ObjectScreen3d {
 
 //	Object[] listEntries = {"This is a list entry1", "And another one1", "The meaning of life1", "Is hard to come by1",
 //			"This is a list entry2", "And another one2", "The meaning of life2", "Is hard to come by2", "This is a list entry3",
@@ -51,7 +52,6 @@ public class SettingsScreen extends ObjectScreen {
 //			"The meaning of life4", "Is hard to come by4", "This is a list entry5", "And another one5", "The meaning of life5",
 //			"Is hard to come by5"};
 
-		Skin skin;
 		Stage stage;
 		Texture texture1;
 		//Texture texture2;
@@ -60,15 +60,7 @@ public class SettingsScreen extends ObjectScreen {
 	public SettingsScreen(Kite game) {
 		super(game);
 
-		skin = new Skin();
-		FileHandle fileHandle = Gdx.files.internal("data/uiskin.json");
-		FileHandle atlasFile = fileHandle.sibling("uiskin.atlas");
-
-		if (atlasFile.exists()) {
-		    skin.addRegions(new TextureAtlas(atlasFile));
-		}
-
-		skin.load(fileHandle);		
+		Skin skin = game.getSkin();
 
 		texture1 = new Texture(Gdx.files.internal("images/planet_1_d.png"));
 //		texture2 = new Texture(Gdx.files.internal("images/planet_2_d.png"));
@@ -220,7 +212,6 @@ public class SettingsScreen extends ObjectScreen {
 	@Override
 	public void dispose () {
 		stage.dispose();
-		skin.dispose();
 //		texture1.dispose();
 //		texture2.dispose();
 	}

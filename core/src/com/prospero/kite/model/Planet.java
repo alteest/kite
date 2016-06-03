@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
@@ -14,15 +13,12 @@ import com.prospero.kite.model3d.ModelFactory;
 
 public class Planet extends Sphere {
 
-	private float distance = 0;
 	ModelInstance orbit = null;
 	protected Array<Station> stations = new Array<Station>();
 	private final Vector3 position = new Vector3();
 	
-	public Planet(String name, String texture, float distance, float position, float r) {
-		super(name, texture, distance * MathUtils.sin(MathUtils.degreesToRadians * position), 0f, distance * MathUtils.cos(MathUtils.degreesToRadians * position), r);
-		this.distance = distance;
-		loadModel();
+	public Planet(String name, String texture, float distance, float direction, int r) {
+		super(name, texture, distance, direction, r);
 	}
 
 	public void addStation(Station station) {

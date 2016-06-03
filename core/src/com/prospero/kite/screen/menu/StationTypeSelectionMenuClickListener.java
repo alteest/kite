@@ -7,7 +7,7 @@ import com.prospero.kite.model.Planet;
 import com.prospero.kite.model.Station;
 import com.prospero.kite.model.StationType;
 import com.prospero.kite.model3d.StationFactory;
-import com.prospero.kite.screen.PlanetScreen;
+import com.prospero.kite.screen.old3d.PlanetScreen3d;
 
 public class StationTypeSelectionMenuClickListener extends ClickListener {
 
@@ -20,7 +20,7 @@ public class StationTypeSelectionMenuClickListener extends ClickListener {
     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
     	StationType type = (StationType) event.getListenerActor().getUserObject();
     	StationTypeSelectionMenu menu = (StationTypeSelectionMenu) event.getListenerActor().getParent();
-    	PlanetScreen screen = (PlanetScreen) menu.screen;
+    	PlanetScreen3d screen = (PlanetScreen3d) menu.screen;
     	Planet planet = (Planet) screen.selectedObj.getParent();
     	planet.replaceStation((Station) screen.selectedObj, StationFactory.getStation(type, (Station) screen.selectedObj));
     	screen.selectedObj = null;

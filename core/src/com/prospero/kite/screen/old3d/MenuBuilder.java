@@ -1,4 +1,4 @@
-package com.prospero.kite.screen;
+package com.prospero.kite.screen.old3d;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class MenuBuilder {
 	 
-	public static ScrollPane buildMenu(final ObjectScreen screen) {
+	public static ScrollPane buildMenu(final ObjectScreen3d screen) {
 		Texture fontTexture = new Texture(Gdx.files.internal("data/default.png"));
 		fontTexture.setFilter(TextureFilter.Linear, TextureFilter.MipMapLinearLinear);
 		TextureRegion fontRegion = new TextureRegion(fontTexture);

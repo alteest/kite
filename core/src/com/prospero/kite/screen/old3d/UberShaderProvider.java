@@ -1,4 +1,4 @@
-package com.prospero.kite.screen;
+package com.prospero.kite.screen.old3d;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g3d.Renderable;

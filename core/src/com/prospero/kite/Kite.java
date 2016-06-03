@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.prospero.kite.model.User;
 import com.prospero.kite.model3d.TextureFactory;
 import com.prospero.kite.screen.MainMenuScreen;
-import com.prospero.kite.screen.StationScreen;
+import com.prospero.kite.screen.old3d.StationScreen3d;
 
 public class Kite extends Game {
 	protected User user;
@@ -28,6 +28,11 @@ public class Kite extends Game {
 		setScreen(new MainMenuScreen(this));
 	}
 
+	@Override
+	public void dispose() {
+		skin.dispose();
+	}
+	
 	@Override
 	public void render () {
 		super.render();

@@ -9,7 +9,7 @@ public class Station1 extends Station {
 	
 	
 	public Station1(Station station) {
-		super(station.name, station.distance, station.position, station.r);
+		super(station.name, station.distance, station.direction, station.r);
 	}
 
 	@Override

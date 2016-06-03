@@ -1,4 +1,4 @@
-package com.prospero.kite.screen;
+package com.prospero.kite.screen.old3d;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -19,12 +19,12 @@ import com.prospero.kite.model.Station;
 import com.prospero.kite.model.StationType;
 import com.prospero.kite.screen.menu.StationTypeSelectionMenu;
 
-public class PlanetScreen extends ObjectScreen {
+public class PlanetScreen3d extends ObjectScreen3d {
 
 	private Stage menuStage = new Stage();
 	private InputMultiplexer inputController;
 	
-	public PlanetScreen(final Kite game, final Planet planet) {
+	public PlanetScreen3d(final Kite game, final Planet planet) {
 		super(game, planet);
 
 		SpaceSystemBackgroundActor background = new SpaceSystemBackgroundActor();
@@ -84,7 +84,7 @@ public class PlanetScreen extends ObjectScreen {
 			if (selectedObj instanceof Station) {
 				Station station = (Station) selectedObj;
 				if (station.getStationType() != StationType.Unknown) {
-					game.setScreen(new StationScreen(game, station));
+					game.setScreen(new StationScreen3d(game, station));
 				}
 			}
 		}
@@ -94,7 +94,7 @@ public class PlanetScreen extends ObjectScreen {
 	@Override
 	public boolean keyDown(int keycode) {
         if((keycode == Keys.BACK) || (keycode == Keys.ESCAPE)) {
-        	game.setScreen(new SpaceSystemScreen(game, (SpaceSystem) object.getParent()));
+        	game.setScreen(new SpaceSystemScreen3d(game, (SpaceSystem) object.getParent()));
         	return true;
          }
          return false;

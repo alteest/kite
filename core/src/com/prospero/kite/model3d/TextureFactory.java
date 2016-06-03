@@ -29,8 +29,6 @@ public class TextureFactory {
 			textures.put("Song", new Texture("images/planet_Song_1600.jpg"));
 			textures.put("Tao Seti", new Texture("images/planet_Tao_Seti_1600.jpg"));
 			textures.put("Wight", new Texture("images/planet_Wight_1600.jpg"));
-
-			textures.put("Bog1200", new Texture("models/AlienPlanet/planet_Bog1200.png"));
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package com.prospero.kite.screen;
+package com.prospero.kite.screen.old3d;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -11,9 +11,9 @@ import com.prospero.kite.model.Planet;
 import com.prospero.kite.model.Station;
 import com.prospero.kite.screen.menu.StationParametersWindow;
 
-public class StationScreen extends ObjectScreen {
+public class StationScreen3d extends ObjectScreen3d {
 
-	public StationScreen(final Kite game, Station station) {
+	public StationScreen3d(final Kite game, Station station) {
 		super(game, station);
 
         stage = new Stage();
@@ -38,7 +38,7 @@ public class StationScreen extends ObjectScreen {
 	public boolean keyDown(int keycode) {
         if((keycode == Keys.BACK) || (keycode == Keys.ESCAPE)) {
         	if (object.getParent() != null) {
-        		game.setScreen(new PlanetScreen(game, (Planet) object.getParent()));
+        		game.setScreen(new PlanetScreen3d(game, (Planet) object.getParent()));
         		return true;
         	}
          }

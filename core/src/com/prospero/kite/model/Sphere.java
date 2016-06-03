@@ -1,5 +1,9 @@
 package com.prospero.kite.model;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g3d.Attribute;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.Renderable;
@@ -12,12 +16,24 @@ public abstract class Sphere extends GO {
 	
 	private String texture = null;
 
-    protected Sphere(final String name, final String texture, final float x, final float y, final float z, final float r) {
-    	super(name, x, y, z, r);
+    protected Sphere(final String name, final String texture, final float distance, float direction, final int r) {
+    	super(name, distance, direction, r);
 		this.texture = texture;
+		initObjects();
 	}
 
-	protected void loadModel() {
+    protected void initObjects() {
+
+    	Pixmap pixmap = new Pixmap(2 * r + 1, 2 * r + 1, Pixmap.Format.RGBA8888);
+        //Draw two lines forming an X
+        pixmap.setColor(Color.YELLOW);
+        pixmap.drawCircle(r, r, r);
+        
+        sprite = new Sprite(new Texture(pixmap));    	
+        pixmap.dispose();
+    }
+
+    protected void loadModel() {
 
         instance = new ModelInstance(ModelFactory.getSphere(r), x, y, z);
         calculateCoordinates();

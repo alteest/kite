@@ -1,5 +1,7 @@
 package com.prospero.kite.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.math.Intersector;
@@ -19,33 +21,39 @@ public class SpaceSystem extends GO {
 	}
 	
 	public void generate() {
-		addStaticObject(new Star("Star1", "Ako", 1f * Kite.multi));
+		addStaticObject(new Star("Star1", "Ako", 100));
 
-		Planet planet1 = new Planet("Planet1", "Song", 2f * Kite.multi, 60f, 0.25f * Kite.multi);
-		addStaticObject(planet1);
+		Planet planet1 = new Planet("Planet1", "Song", 2f * Kite.multi, 60f, 25);
+		//addStaticObject(planet1);
 
-		Planet planet2 = new Planet("Planet2", "Bog1200", 4.5f * Kite.multi, 215f, 0.4f * Kite.multi);
+		Planet planet2 = new Planet("Planet2", "Bog1200", 4.5f * Kite.multi, 215f, 40);
 
-		Station station21 = new Station("Station21", 1.05f * 0.4f * Kite.multi, 0f, 0.02f * Kite.multi);
+		Station station21 = new Station("Station21", 1.05f * 0.4f * Kite.multi, 0f, 20);
 		planet2.addStation(station21);
-		Station station22 = new Station("Station21", 1.1f * 0.4f * Kite.multi, 30f, 0.016f * Kite.multi);
+		Station station22 = new Station("Station21", 1.1f * 0.4f * Kite.multi, 30f, 16);
 		planet2.addStation(station22);
-		Station station23 = new Station("Station21", 1.12f * 0.4f * Kite.multi, -35f, 0.022f * Kite.multi);
+		Station station23 = new Station("Station21", 1.12f * 0.4f * Kite.multi, -35f, 22);
 		planet2.addStation(station23);
 
-		addStaticObject(planet2);
+		//addStaticObject(planet2);
 
-		Planet planet3 = new Planet("Planet3", "Cerca Trova", 8f * Kite.multi, 135f, 0.5f * Kite.multi);
-		addStaticObject(planet3);
+		Planet planet3 = new Planet("Planet3", "Cerca Trova", 8f * Kite.multi, 135f, 50);
+		//addStaticObject(planet3);
 
-		Planet planet4 = new Planet("Planet3", "Blink", 13f * Kite.multi, 80f, 0.65f * Kite.multi);
-		addStaticObject(planet4);
+		Planet planet4 = new Planet("Planet3", "Blink", 13f * Kite.multi, 80f, 60);
+		//addStaticObject(planet4);
 	}
 
 	@Override
 	public void render(ModelBatch modelBatch, Environment environment, GO parent) {
 		for (GO obj : staticObjects) {
 			obj.render(modelBatch, environment, parent);
+		}
+	}
+
+	public void draw(SpriteBatch batch) {
+		for (GO obj : staticObjects) {
+			obj.draw(batch);
 		}
 	}
 	

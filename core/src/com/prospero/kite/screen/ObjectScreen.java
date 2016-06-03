@@ -1,48 +1,34 @@
 package com.prospero.kite.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g3d.Environment;
-import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.Renderable;
-import com.badlogic.gdx.graphics.g3d.Shader;
-import com.badlogic.gdx.graphics.g3d.utils.RenderContext;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.prospero.kite.Kite;
 import com.prospero.kite.model.GO;
 
-public abstract class ObjectScreen implements Screen, InputProcessor {
+public abstract class ObjectScreen implements Screen {
 
-	final Kite game;
+	protected final Kite game;
 	GO object = null;
 	public GO selectedObj = null;
-
-	protected Stage stage;
-	protected Label label;
-	protected BitmapFont font;
+	
+	protected SpriteBatch batch = null;
+	private Stage stage = new Stage();
 	protected StringBuilder stringBuilder;
-
-	public Camera cam;
-    public SpaceSystemCameraInputController camController;
-    public Shader shader;
-    public RenderContext renderContext;
-    public Model model;
-    public Renderable renderable;
-    Texture texture;
-
-	protected ModelBatch modelBatch;
-	protected Environment environment;
+	protected Label label;
 	
 	public ObjectScreen(final Kite game) {
 		this.game = game;
-		Gdx.input.setCatchBackKey(true);
+		//Gdx.input.setCatchBackKey(true);
+		batch = new SpriteBatch();
+        stringBuilder = new StringBuilder();
+        label = new Label(" ", game.getSkin());
+        stage.addActor(label);
+		//Gdx.input.setCatchBackKey(true);
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	public ObjectScreen(final Kite game, GO obj) {
@@ -58,10 +44,8 @@ public abstract class ObjectScreen implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta) {
-        camController.update();
-        
-        Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (stringBuilder != null) {
         	stringBuilder.setLength(0);
@@ -71,12 +55,10 @@ public abstract class ObjectScreen implements Screen, InputProcessor {
         if (stage != null) {
         	stage.draw();
         }
-
-        if (modelBatch != null) {
-        	modelBatch.begin(cam);
-        	object.render(modelBatch, environment, object);
-        	modelBatch.end();
-        }
+        
+        batch.begin();
+        object.draw(batch);
+        batch.end();
 	}		
 
 	@Override
@@ -106,63 +88,7 @@ public abstract class ObjectScreen implements Screen, InputProcessor {
 	@Override
 	public void dispose() {
 		stage.dispose();
-		modelBatch.dispose();
+		batch.dispose();
 		game.dispose();
-	}
-
-
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

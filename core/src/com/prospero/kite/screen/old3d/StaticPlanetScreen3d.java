@@ -1,4 +1,4 @@
-package com.prospero.kite.screen;
+package com.prospero.kite.screen.old3d;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.prospero.kite.Kite;
 import com.prospero.kite.model.Planet;
 
-public class StaticPlanetScreen extends ObjectScreen {
+public class StaticPlanetScreen3d extends ObjectScreen3d {
 
 	private CameraInputController camController2;
 	private Stage menuStage = new Stage();
@@ -30,7 +30,7 @@ public class StaticPlanetScreen extends ObjectScreen {
 	private AssetManager assetManager;
 	private boolean loading;
 	
-	public StaticPlanetScreen(final Kite game, final Planet planet) {
+	public StaticPlanetScreen3d(final Kite game, final Planet planet) {
 		super(game, planet);
 
 		SpaceSystemBackgroundActor background = new SpaceSystemBackgroundActor();
