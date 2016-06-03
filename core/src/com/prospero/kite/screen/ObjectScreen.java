@@ -24,7 +24,9 @@ public abstract class ObjectScreen implements Screen {
 		this.game = game;
 		//Gdx.input.setCatchBackKey(true);
 		batch = new SpriteBatch();
-        stringBuilder = new StringBuilder();
+		stage.addActor(new SpaceSystemBackgroundActor());
+
+		stringBuilder = new StringBuilder();
         label = new Label(" ", game.getSkin());
         stage.addActor(label);
 		//Gdx.input.setCatchBackKey(true);

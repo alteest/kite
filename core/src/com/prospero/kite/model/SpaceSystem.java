@@ -23,8 +23,8 @@ public class SpaceSystem extends GO {
 	public void generate() {
 		addStaticObject(new Star("Star1", "Ako", 100));
 
-		Planet planet1 = new Planet("Planet1", "Song", 2f * Kite.multi, 60f, 25);
-		//addStaticObject(planet1);
+/*		Planet planet1 = new Planet("Planet1", "Song", 2f * Kite.multi, 60f, 25);
+		addStaticObject(planet1);
 
 		Planet planet2 = new Planet("Planet2", "Bog1200", 4.5f * Kite.multi, 215f, 40);
 
@@ -35,13 +35,13 @@ public class SpaceSystem extends GO {
 		Station station23 = new Station("Station21", 1.12f * 0.4f * Kite.multi, -35f, 22);
 		planet2.addStation(station23);
 
-		//addStaticObject(planet2);
+		addStaticObject(planet2);
 
 		Planet planet3 = new Planet("Planet3", "Cerca Trova", 8f * Kite.multi, 135f, 50);
-		//addStaticObject(planet3);
+		addStaticObject(planet3);
 
 		Planet planet4 = new Planet("Planet3", "Blink", 13f * Kite.multi, 80f, 60);
-		//addStaticObject(planet4);
+		addStaticObject(planet4);*/
 	}
 
 	@Override

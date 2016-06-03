@@ -17,6 +17,7 @@ import com.prospero.kite.model.Planet;
 import com.prospero.kite.model.SpaceSystem;
 import com.prospero.kite.model.Station;
 import com.prospero.kite.model.StationType;
+import com.prospero.kite.screen.SpaceSystemBackgroundActor;
 import com.prospero.kite.screen.menu.StationTypeSelectionMenu;
 
 public class PlanetScreen3d extends ObjectScreen3d {

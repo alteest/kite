@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.prospero.kite.Kite;
 import com.prospero.kite.model.Planet;
+import com.prospero.kite.screen.SpaceSystemBackgroundActor;
 
 public class StaticPlanetScreen3d extends ObjectScreen3d {
 

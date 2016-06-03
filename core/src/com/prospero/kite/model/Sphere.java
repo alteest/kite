@@ -1,5 +1,7 @@
 package com.prospero.kite.model;
 
+import java.util.Optional;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,22 +16,23 @@ import com.prospero.kite.model3d.TextureFactory;
 
 public abstract class Sphere extends GO {
 	
-	private String texture = null;
+	private Optional<String> texture = null;
 
     protected Sphere(final String name, final String texture, final float distance, float direction, final int r) {
     	super(name, distance, direction, r);
-		this.texture = texture;
+		this.texture = Optional.ofNullable(texture);
 		initObjects();
 	}
 
     protected void initObjects() {
 
     	Pixmap pixmap = new Pixmap(2 * r + 1, 2 * r + 1, Pixmap.Format.RGBA8888);
+        
         //Draw two lines forming an X
         pixmap.setColor(Color.YELLOW);
         pixmap.drawCircle(r, r, r);
         
-        sprite = new Sprite(new Texture(pixmap));    	
+        sprite = Optional.of(new Sprite(new Texture(pixmap)));    	
         pixmap.dispose();
     }
 
@@ -40,8 +43,8 @@ public abstract class Sphere extends GO {
 
         NodePart blockPart = instance.nodes.get(0).parts.get(0);
 
-        if (texture != null) {
-            Attribute attribute = TextureAttribute.createDiffuse(TextureFactory.getTexture(texture));
+        if (texture.isPresent()) {
+            Attribute attribute = TextureAttribute.createDiffuse(TextureFactory.getTexture(texture.get()));
             blockPart.material.set(attribute);
         } else {
             Renderable renderable = new Renderable();

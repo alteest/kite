@@ -1,5 +1,7 @@
 package com.prospero.kite.model;
 
+import java.util.Optional;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,7 +33,7 @@ public abstract class GO {
     protected static BoundingBox bounds = new BoundingBox();
     
 	protected ModelInstance instance = null;
-	protected Sprite sprite = null;
+	protected Optional<Sprite> sprite = Optional.empty();
     protected Shader shader = null;
     
     protected GO() {
@@ -114,11 +116,11 @@ public abstract class GO {
     }
 
 	public void draw(SpriteBatch batch) {
-		if (sprite != null) {
-			sprite.setPosition(x, y);
-			sprite.draw(batch);
-			sprite.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-			sprite.draw(batch);
+		if (sprite.isPresent()) {
+			sprite.get().setPosition(x, y);
+			sprite.get().draw(batch);
+			sprite.get().setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+			sprite.get().draw(batch);
 		}
 	}
 }
