@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.prospero.kite.Kite;
@@ -57,6 +59,11 @@ public abstract class ObjectScreen implements Screen {
         if (stage != null) {
         	stage.draw();
         }
+        
+        ShapeRenderer renderer = new ShapeRenderer();
+        renderer.begin(ShapeType.Line);
+        object.draw(renderer);
+        renderer.end();
         
         batch.begin();
         object.draw(batch);

@@ -9,10 +9,10 @@ public class Station1 extends Station {
 	
 	
 	public Station1(Station station) {
-		super(station.name, station.distance, station.direction, station.r);
+		super(station.name, station.distance, station.direction, station.scale);
 	}
 
-	@Override
+	/*@Override
 	protected void initModel() {
 		type = StationType.Station1;
 		instance = new ModelInstance(ModelFactory.getStation(type), x, y, z);
@@ -20,5 +20,5 @@ public class Station1 extends Station {
 
         orbit = new ModelInstance(ModelFactory.getCircle(distance), 0, 0, 0);
         orbit.materials.get(0).set(new ColorAttribute(ColorAttribute.Diffuse, Color.WHITE));
-	}
+	}*/
 }

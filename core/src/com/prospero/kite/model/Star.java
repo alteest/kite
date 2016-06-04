@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 
 public class Star extends Sphere {
 	
-	public Star(String name, String texture, final int r) {
-		super(name, texture, 0f, 0f, r);
+	public Star(String name, String texture, final float scale) {
+		super(name, texture, 0f, 0f, scale);
 	}
 	
 	@Override

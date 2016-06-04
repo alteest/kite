@@ -38,7 +38,7 @@ public class PlanetScreen3d extends ObjectScreen3d {
         stage.addActor(label);
         stringBuilder = new StringBuilder();
 
-        float r = planet.getRadius();
+/*        float r = planet.getRadius();
         float dist = 2 * r;
         float d = r / 3;
         float degree = (float) Math.toDegrees(Math.asin(d / dist));
@@ -54,7 +54,7 @@ public class PlanetScreen3d extends ObjectScreen3d {
         camController.scrollFactor = camController.scrollFactor * 50;
         camController.rotateAngle = 90;
 
-        inputController = new InputMultiplexer(this, camController);
+        inputController = new InputMultiplexer(this, camController);*/
 
 		modelBatch = new ModelBatch();
 	}

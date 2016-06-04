@@ -1,26 +1,45 @@
 package com.prospero.kite.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g3d.Environment;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
-import com.prospero.kite.model3d.ModelFactory;
+import com.prospero.kite.model3d.AssetFactory;
+import com.sun.xml.internal.bind.annotation.OverrideAnnotationOf;
 
 public class Planet extends Sphere {
 
-	ModelInstance orbit = null;
+	private Sprite orbit = null;
 	protected Array<Station> stations = new Array<Station>();
 	private final Vector3 position = new Vector3();
 	
-	public Planet(String name, String texture, float distance, float direction, int r) {
-		super(name, texture, distance, direction, r);
+	public Planet(String name, String texture, int distance, int direction, float scale) {
+		super(name, texture, distance, direction, scale);
 	}
 
+	@Override
+    protected void initObjects() {
+		super.initObjects();
+		// FIXME init orbit elipse
+    }
+
+	public void draw(ShapeRenderer renderer) {
+		//renderer.translate(x, y, 0);
+		float dimention = (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
+		float x = Gdx.graphics.getWidth() / 2 - distance;
+		float y = Gdx.graphics.getHeight() / 2 - distance * dimention;
+		float w = 2 * distance;
+		float h = 2 * distance * dimention;
+		renderer.setColor(Color.WHITE);
+		renderer.ellipse(x, y, w , h, 50);
+	}
+	
 	public void addStation(Station station) {
 		station.setParent(this);
 		stations.add(station);
@@ -36,12 +55,13 @@ public class Planet extends Sphere {
 		}
 	}
 	
-	@Override
+	/*@Override
 	protected void loadModel() {
 		super.loadModel();
         orbit = new ModelInstance(ModelFactory.getCircle(distance), 0, 0, 0);
         orbit.materials.get(0).set(new ColorAttribute(ColorAttribute.Diffuse, Color.WHITE));
 	}
+
 
 	@Override
 	public void render(ModelBatch modelBatch, Environment environment, GO parent) {
@@ -57,7 +77,7 @@ public class Planet extends Sphere {
 			modelBatch.render(instance, environment);
 			modelBatch.render(orbit, environment);
 		}
-	}
+	}*/
 
     public GO getObject(Ray ray) {
         GO result = null;

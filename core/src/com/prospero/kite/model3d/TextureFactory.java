@@ -14,7 +14,7 @@ public class TextureFactory {
 	
 	public static void init() {
 		if (textures.size() == 0) {
-			textures.put("Ako", new Texture("images/planet_7_d.png"));
+			/*textures.put("Ako", new Texture("images/planet_7_d.png"));
 			textures.put("Spot", new Texture("images/planet_6_d.png"));
 			textures.put("Rim", new Texture("images/planet_5_d.png"));
 			textures.put("Dust", new Texture("images/planet_4_d.png"));
@@ -29,7 +29,7 @@ public class TextureFactory {
 			textures.put("Serendip", new Texture(Gdx.files.internal("images/planet_serendip_1600.jpg"), true));
 			textures.put("Song", new Texture("images/planet_Song_1600.jpg"));
 			textures.put("Tao Seti", new Texture("images/planet_Tao_Seti_1600.jpg"));
-			textures.put("Wight", new Texture("images/planet_Wight_1600.jpg"));
+			textures.put("Wight", new Texture("images/planet_Wight_1600.jpg"));*/
 		}
 	}
 	

@@ -1,14 +1,13 @@
 package com.prospero.kite.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
-import com.prospero.kite.Kite;
 
 public class SpaceSystem extends GO {
 	
@@ -21,26 +20,26 @@ public class SpaceSystem extends GO {
 	}
 	
 	public void generate() {
-		addStaticObject(new Star("Star1", "Ako", 100));
+		addStaticObject(new Star("Star1", "data/a/star1.png", 0.9f));
 
-/*		Planet planet1 = new Planet("Planet1", "Song", 2f * Kite.multi, 60f, 25);
+		Planet planet1 = new Planet("Planet1", "data/a/planet2.png", 200, 60, 0.4f);
 		addStaticObject(planet1);
 
-		Planet planet2 = new Planet("Planet2", "Bog1200", 4.5f * Kite.multi, 215f, 40);
+		Planet planet2 = new Planet("Planet2", "data/a/planet3.png", 400, 135, 0.3f);
 
-		Station station21 = new Station("Station21", 1.05f * 0.4f * Kite.multi, 0f, 20);
-		planet2.addStation(station21);
-		Station station22 = new Station("Station21", 1.1f * 0.4f * Kite.multi, 30f, 16);
-		planet2.addStation(station22);
-		Station station23 = new Station("Station21", 1.12f * 0.4f * Kite.multi, -35f, 22);
-		planet2.addStation(station23);
+		//Station station21 = new Station("Station21", 1.05f * 0.4f * Kite.multi, 0f, 0.02f * Kite.multi);
+		//planet2.addStation(station21);
+		//Station station22 = new Station("Station21", 1.1f * 0.4f * Kite.multi, 30f, 0.016f * Kite.multi);
+		//planet2.addStation(station22);
+		//Station station23 = new Station("Station21", 1.12f * 0.4f * Kite.multi, -35f, 0.022f * Kite.multi);
+		//planet2.addStation(station23);
 
 		addStaticObject(planet2);
 
-		Planet planet3 = new Planet("Planet3", "Cerca Trova", 8f * Kite.multi, 135f, 50);
+		/*Planet planet3 = new Planet("Planet3", "Cerca Trova", 8f * Kite.multi, 135f, 0.5f * Kite.multi);
 		addStaticObject(planet3);
 
-		Planet planet4 = new Planet("Planet3", "Blink", 13f * Kite.multi, 80f, 60);
+		Planet planet4 = new Planet("Planet3", "Blink", 13f * Kite.multi, 80f, 0.65f * Kite.multi);
 		addStaticObject(planet4);*/
 	}
 
@@ -51,6 +50,13 @@ public class SpaceSystem extends GO {
 		}
 	}
 
+	public void draw(ShapeRenderer renderer) {
+		for (GO obj : staticObjects) {
+			obj.draw(renderer);
+		}
+	}
+	
+	@Override
 	public void draw(SpriteBatch batch) {
 		for (GO obj : staticObjects) {
 			obj.draw(batch);

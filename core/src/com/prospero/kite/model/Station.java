@@ -12,12 +12,12 @@ public class Station extends GO {
 	ModelInstance orbit = null;
 	protected StationType type = StationType.Unknown;
 	
-	public Station(final String name, float distance, float direction, final int r) {
-		super(name, distance, direction, r);
-		initModel();
+	public Station(final String name, float distance, float direction, final float scale) {
+		super(name, distance, direction, scale);
+		//initModel();
 	}
 
-	protected void initModel() {
+	/*protected void initModel() {
         instance = new ModelInstance(ModelFactory.getSphereLines(r), x, y, z);
         calculateCoordinates();
 
@@ -35,7 +35,7 @@ public class Station extends GO {
 			modelBatch.render(instance);
 			modelBatch.render(orbit);
 		}
-	}
+	}*/
 
 	public StationType getStationType() {
 		return type;

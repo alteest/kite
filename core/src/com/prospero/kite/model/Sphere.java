@@ -1,42 +1,25 @@
 package com.prospero.kite.model;
 
-import java.util.Optional;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g3d.Attribute;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.Renderable;
-import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
-import com.badlogic.gdx.graphics.g3d.model.NodePart;
-import com.prospero.kite.model3d.ModelFactory;
-import com.prospero.kite.model3d.TextureFactory;
+import com.prospero.kite.model3d.AssetFactory;
 
 public abstract class Sphere extends GO {
 	
-	private Optional<String> texture = null;
+	private String textureFile = null;
 
-    protected Sphere(final String name, final String texture, final float distance, float direction, final int r) {
-    	super(name, distance, direction, r);
-		this.texture = Optional.ofNullable(texture);
+    protected Sphere(final String name, final String texture, final float distance, float direction, final float scale) {
+    	super(name, distance, direction, scale);
+		this.textureFile = texture;
 		initObjects();
 	}
 
     protected void initObjects() {
-
-    	Pixmap pixmap = new Pixmap(2 * r + 1, 2 * r + 1, Pixmap.Format.RGBA8888);
-        
-        //Draw two lines forming an X
-        pixmap.setColor(Color.YELLOW);
-        pixmap.drawCircle(r, r, r);
-        
-        sprite = Optional.of(new Sprite(new Texture(pixmap)));    	
-        pixmap.dispose();
+        sprite = new Sprite(AssetFactory.getTexture(textureFile));
+        sprite.setScale(scale);
     }
 
-    protected void loadModel() {
+    /*protected void loadModel() {
 
         instance = new ModelInstance(ModelFactory.getSphere(r), x, y, z);
         calculateCoordinates();
@@ -58,5 +41,5 @@ public abstract class Sphere extends GO {
             //shader = new DefaultShader(renderable, new DefaultShader.Config(vert, frag));
             //shader.init();
         } 
-	}
+	}*/
 }

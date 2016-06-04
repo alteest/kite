@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.prospero.kite.model.User;
 import com.prospero.kite.model3d.TextureFactory;
 import com.prospero.kite.screen.MainMenuScreen;
-import com.prospero.kite.screen.old3d.StationScreen3d;
 
 public class Kite extends Game {
 	protected User user;
@@ -30,7 +29,9 @@ public class Kite extends Game {
 
 	@Override
 	public void dispose() {
-		skin.dispose();
+		if (skin != null) {
+			skin.dispose();
+		}
 	}
 	
 	@Override
