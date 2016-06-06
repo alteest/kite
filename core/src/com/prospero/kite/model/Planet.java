@@ -2,20 +2,15 @@ package com.prospero.kite.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
-import com.prospero.kite.model3d.AssetFactory;
-import com.sun.xml.internal.bind.annotation.OverrideAnnotationOf;
 
 public class Planet extends Sphere {
 
-	private Sprite orbit = null;
+	//private Sprite orbit = null;
 	protected Array<Station> stations = new Array<Station>();
 	private final Vector3 position = new Vector3();
 	
@@ -26,10 +21,10 @@ public class Planet extends Sphere {
 	@Override
     protected void initObjects() {
 		super.initObjects();
-		// FIXME init orbit elipse
     }
 
-	public void draw(ShapeRenderer renderer) {
+	@Override
+	public void draw(ShapeRenderer renderer, GO topObject) {
 		//renderer.translate(x, y, 0);
 		float dimention = (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
 		float x = Gdx.graphics.getWidth() / 2 - distance;

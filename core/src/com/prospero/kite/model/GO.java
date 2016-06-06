@@ -116,8 +116,8 @@ public abstract class GO {
     	radius = dimensions.len() / 2f;
     }
 
-	public void draw(ShapeRenderer renderer) {}
-	public void draw(SpriteBatch batch) {
+	public void draw(ShapeRenderer renderer, GO topObject) {}
+	public void draw(SpriteBatch batch, GO topObject) {
 		if (sprite != null) {
 			sprite.setPosition(x + Gdx.graphics.getWidth()/2 - sprite.getWidth()/2, y + Gdx.graphics.getHeight()/2 - sprite.getHeight() / 2);
 			sprite.draw(batch);

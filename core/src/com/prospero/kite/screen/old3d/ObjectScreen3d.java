@@ -66,6 +66,9 @@ public abstract class ObjectScreen3d implements Screen, InputProcessor {
         if (stringBuilder != null) {
         	stringBuilder.setLength(0);
         	stringBuilder.append(" FPS: ").append(Gdx.graphics.getFramesPerSecond());
+        	if (selectedObj != null) {
+        		stringBuilder.append(" : ").append(selectedObj.getName());
+        	}
         	label.setText(stringBuilder);
         }
         if (stage != null) {

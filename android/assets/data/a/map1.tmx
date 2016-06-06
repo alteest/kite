@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="pixel city" tilewidth="32" tileheight="32" tilecount="156" columns="12">
+  <image source="../../../../../../../111/pixel city.png" width="394" height="429"/>
+ </tileset>
+ <tileset firstgid="157" name="pixel city" tilewidth="1" tileheight="1" tilecount="0" columns="0"/>
+ <tileset firstgid="157" name="pixel city" tilewidth="32" tileheight="32" tilecount="156" columns="12">
+  <image source="../../../../../../../111/pixel city.png" width="394" height="429"/>
+ </tileset>
+</map>

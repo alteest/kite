@@ -1,6 +1,7 @@
 package com.prospero.kite.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,14 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.prospero.kite.Kite;
 import com.prospero.kite.model.GO;
 
-public abstract class ObjectScreen implements Screen {
+public abstract class ObjectScreen implements Screen, InputProcessor {
 
 	protected final Kite game;
 	GO object = null;
 	public GO selectedObj = null;
 	
 	protected SpriteBatch batch = null;
-	private Stage stage = new Stage();
+	protected Stage stage = new Stage();
 	protected StringBuilder stringBuilder;
 	protected Label label;
 	
@@ -32,7 +33,7 @@ public abstract class ObjectScreen implements Screen {
         label = new Label(" ", game.getSkin());
         stage.addActor(label);
 		//Gdx.input.setCatchBackKey(true);
-		Gdx.input.setInputProcessor(stage);
+		Gdx.input.setInputProcessor(this);
 	}
 
 	public ObjectScreen(final Kite game, GO obj) {
@@ -54,6 +55,9 @@ public abstract class ObjectScreen implements Screen {
         if (stringBuilder != null) {
         	stringBuilder.setLength(0);
         	stringBuilder.append(" FPS: ").append(Gdx.graphics.getFramesPerSecond());
+        	if (selectedObj != null) {
+        		stringBuilder.append(" : ").append(selectedObj.getName());
+        	}
         	label.setText(stringBuilder);
         }
         if (stage != null) {
@@ -62,11 +66,11 @@ public abstract class ObjectScreen implements Screen {
         
         ShapeRenderer renderer = new ShapeRenderer();
         renderer.begin(ShapeType.Line);
-        object.draw(renderer);
+        object.draw(renderer, object);
         renderer.end();
         
         batch.begin();
-        object.draw(batch);
+        object.draw(batch, object);
         batch.end();
 	}		
 
@@ -100,4 +104,45 @@ public abstract class ObjectScreen implements Screen {
 		batch.dispose();
 		game.dispose();
 	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		return false;
+	}
+	
 }

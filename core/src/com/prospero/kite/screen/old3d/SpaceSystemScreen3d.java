@@ -159,6 +159,7 @@ public class SpaceSystemScreen3d extends ObjectScreen3d {
 
     public GO getObject (int screenX, int screenY) {
         Ray ray = cam.getPickRay(screenX, screenY);
-        return ((SpaceSystem) object).getObject(ray);
+        //return ((SpaceSystem) object).getObject(ray);
+        return null;
     }	
 }

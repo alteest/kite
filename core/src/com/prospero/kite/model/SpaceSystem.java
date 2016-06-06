@@ -4,15 +4,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class SpaceSystem extends GO {
 	
 	protected Array<GO> staticObjects = new Array<GO>();
-	private final Vector3 position = new Vector3();
+	//private final Vector3 position = new Vector3();
 
 	public void addStaticObject(GO obj) {
 		obj.setParent(this);
@@ -50,20 +48,32 @@ public class SpaceSystem extends GO {
 		}
 	}
 
-	public void draw(ShapeRenderer renderer) {
+	public void draw(ShapeRenderer renderer, GO topObject) {
 		for (GO obj : staticObjects) {
-			obj.draw(renderer);
+			obj.draw(renderer, topObject);
 		}
 	}
 	
 	@Override
-	public void draw(SpriteBatch batch) {
+	public void draw(SpriteBatch batch, GO topObject) {
 		for (GO obj : staticObjects) {
-			obj.draw(batch);
+			obj.draw(batch, topObject);
 		}
 	}
 	
-    public int getObjectInt(Ray ray) {
+	public GO getObject(int x, int y) {
+		for (GO obj : staticObjects) {
+			Vector2 center = obj.getCenter();
+			float w = obj.sprite.getWidth() / 2;
+			float h = obj.sprite.getHeight() / 2;
+			if ((x <= center.x + w) && (x >= center.x - w) && (y <= center.y + h) && (y >= center.y - h)){
+				return obj;
+			} 
+		}
+		return null;
+	}
+
+/*    public int getObjectInt(Ray ray) {
         int result = -1;
         float distance = -1;
         for (int i = 0; i < staticObjects.size; ++i) {
@@ -97,6 +107,6 @@ public class SpaceSystem extends GO {
             }
         }
         return result;
-    }	
+    }*/	
     
 }
