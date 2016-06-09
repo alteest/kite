@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.prospero.kite.Kite;
 import com.prospero.kite.model.Planet;
-import com.prospero.kite.screen.SpaceSystemBackgroundActor;
+import com.prospero.kite.screen.Background;
 
 public class StaticPlanetScreen3d extends ObjectScreen3d {
 
@@ -34,7 +34,7 @@ public class StaticPlanetScreen3d extends ObjectScreen3d {
 	public StaticPlanetScreen3d(final Kite game, final Planet planet) {
 		super(game, planet);
 
-		SpaceSystemBackgroundActor background = new SpaceSystemBackgroundActor();
+		Background background = new Background("");
         background.setPosition(0, 0);	
 		
         stage = new Stage();

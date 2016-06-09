@@ -17,7 +17,7 @@ import com.prospero.kite.model.Planet;
 import com.prospero.kite.model.SpaceSystem;
 import com.prospero.kite.model.Station;
 import com.prospero.kite.model.StationType;
-import com.prospero.kite.screen.SpaceSystemBackgroundActor;
+import com.prospero.kite.screen.Background;
 import com.prospero.kite.screen.menu.StationTypeSelectionMenu;
 
 public class PlanetScreen3d extends ObjectScreen3d {
@@ -28,7 +28,7 @@ public class PlanetScreen3d extends ObjectScreen3d {
 	public PlanetScreen3d(final Kite game, final Planet planet) {
 		super(game, planet);
 
-		SpaceSystemBackgroundActor background = new SpaceSystemBackgroundActor();
+		Background background = new Background("");
         background.setPosition(0, 0);	
 		
         stage = new Stage();

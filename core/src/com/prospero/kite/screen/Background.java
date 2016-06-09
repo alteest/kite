@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class SpaceSystemBackgroundActor extends Actor {
+public class Background extends Actor {
     private Sprite sprite;
 
-    public SpaceSystemBackgroundActor() {
+    public Background(String fileName) {
     	super();
-        sprite = new Sprite(new Texture("images/bg2.jpg"));
+        sprite = new Sprite(new Texture(fileName));
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 

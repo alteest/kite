@@ -16,14 +16,14 @@ import com.prospero.kite.model.GO;
 import com.prospero.kite.model.Planet;
 import com.prospero.kite.model.SpaceSystem;
 import com.prospero.kite.screen.MainMenuScreen;
-import com.prospero.kite.screen.SpaceSystemBackgroundActor;
+import com.prospero.kite.screen.Background;
 
 public class SpaceSystemScreen3d extends ObjectScreen3d {
 
 	public SpaceSystemScreen3d(final Kite game, SpaceSystem spaceSystem) {
 		super(game, spaceSystem);
 
-		SpaceSystemBackgroundActor background = new SpaceSystemBackgroundActor();
+		Background background = new Background("");
         background.setPosition(0, 0);	
 		
         stage = new Stage();

@@ -1,6 +1,7 @@
 package com.prospero.kite.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.prospero.kite.Kite;
 import com.prospero.kite.model.GO;
 import com.prospero.kite.model.SpaceSystem;
@@ -11,6 +12,20 @@ public class SpaceSystemScreen extends ObjectScreen {
 		super(game, obj);
 	}
 
+	@Override
+	protected String getBackgroundFileName() {
+		return "images/bg2.jpg";
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		if(keycode == Keys.BACK || keycode == Keys.ESCAPE){
+			game.setScreen(new MainMenuScreen(game));
+			return true;
+		 }
+		 return false;
+	}
+	
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		selectedObj = getObject(screenX - Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2 - screenY);

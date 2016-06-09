@@ -2,6 +2,7 @@ package com.prospero.kite.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,6 +18,10 @@ import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.prospero.kite.Kite;
 import com.prospero.kite.model.GO;
 
@@ -36,7 +41,7 @@ public class PlanetScreen extends ObjectScreen {
     private int mouseButton = -1;
     private boolean mouseInside = false;
     private boolean mouseWasMoved = false;
-    
+
 	public PlanetScreen(Kite game, GO obj) {
 		super(game, obj);
 
@@ -52,17 +57,29 @@ public class PlanetScreen extends ObjectScreen {
     	tile2 = tileSet.getTile(2);
     	tile3 = new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal("data/a/red_xoffset_0__yoffset_0.png"))));
 
+    	// ------ UI ---------------
+		Skin skin = game.getSkin();
+		Button b1 = new Button(new Image(new Texture("images/ui/build.png")), skin);
+		b1.setScale(0.25f);
+		b1.setSize(50f, 50f);
+		b1.setPosition(0, 0);
+		stage.addActor(b1);
         Gdx.input.setInputProcessor(this);
 
         mousePosition = new Vector2();
 	}
 
 	@Override
+	protected String getBackgroundFileName() {
+		return "images/bg3.jpg";
+	}
+	
+	@Override
 	public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        /*if (stringBuilder != null) {
+        if (stringBuilder != null) {
         	stringBuilder.setLength(0);
         	stringBuilder.append(" FPS: ").append(Gdx.graphics.getFramesPerSecond());
         	if (selectedObj != null) {
@@ -72,12 +89,21 @@ public class PlanetScreen extends ObjectScreen {
         }
         if (stage != null) {
         	stage.draw();
-        }*/
+        }
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
 	}		
 
+	@Override
+	public boolean keyDown(int keycode) {
+		if(keycode == Keys.BACK || keycode == Keys.ESCAPE){
+			game.setScreen(new SpaceSystemScreen(game, object.getParent()));
+			return true;
+		 }
+		 return false;
+	}
+	
 	@Override
 	public boolean keyUp(int keycode) {
 	    if(keycode == Input.Keys.LEFT)
@@ -158,9 +184,9 @@ public class PlanetScreen extends ObjectScreen {
 		    position = worldToIso(x, y,  32,  16);
 	    	TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
 	    	position.x = (position.x < 0) ? 0 : position.x;
-	    	position.x = (position.x > layer.getWidth()) ? layer.getWidth() : position.x;
+	    	position.x = (position.x > layer.getWidth()) ? layer.getWidth() - 1 : position.x;
 	    	position.y = (position.y < 0) ? 0 : position.y;
-	    	position.y = (position.y > layer.getHeight()) ? layer.getHeight() : position.y;
+	    	position.y = (position.y > layer.getHeight()) ? layer.getHeight() - 1 : position.y;
 	    	int maxX, maxY, minX, minY;
 	    	if (mousePosition.x > position.x) {
 	    		maxX = (int)mousePosition.x;
@@ -181,8 +207,14 @@ public class PlanetScreen extends ObjectScreen {
 	    		mouseWasMoved = true;
 	    		for (int i = minX; i <= maxX; i++) {
 	    			for (int j = minY; j <= maxY; j++) {
-	    				Cell cell = layer.getCell(i, j);
-	    				cell.setTile(tile3);
+	    				try {
+	    					Cell cell = layer.getCell(i, j);
+	    					if (cell != null) {
+	    						cell.setTile(tile3);
+	    					}
+	    				} catch (NullPointerException e) {
+	    					System.out.println("NULL : " + Integer.toString(i) + " - " + Integer.toString(j));
+	    				}
 	    			}
 	    		}
 	    	}

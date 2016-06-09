@@ -25,20 +25,26 @@ public abstract class ObjectScreen implements Screen, InputProcessor {
 	
 	public ObjectScreen(final Kite game) {
 		this.game = game;
-		//Gdx.input.setCatchBackKey(true);
 		batch = new SpriteBatch();
-		stage.addActor(new SpaceSystemBackgroundActor());
+		String backgroundFileName = getBackgroundFileName();
+		if (backgroundFileName != null) {
+			stage.addActor(new Background(backgroundFileName));
+		}
 
 		stringBuilder = new StringBuilder();
         label = new Label(" ", game.getSkin());
         stage.addActor(label);
-		//Gdx.input.setCatchBackKey(true);
+		Gdx.input.setCatchBackKey(true);
 		Gdx.input.setInputProcessor(this);
 	}
 
 	public ObjectScreen(final Kite game, GO obj) {
 		this(game);
 		this.object = obj;
+	}
+
+	protected String getBackgroundFileName() {
+		return null;
 	}
 	
 	@Override
