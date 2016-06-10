@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.prospero.kite.Kite;
-import com.prospero.kite.model3d.TextureFactory;
+import com.prospero.kite.model.factory.TextureFactory;
 
 public class MainMenuScreen implements Screen {
 

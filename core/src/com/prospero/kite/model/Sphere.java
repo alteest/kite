@@ -2,7 +2,7 @@ package com.prospero.kite.model;
 
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.prospero.kite.model3d.AssetFactory;
+import com.prospero.kite.model.factory.AssetFactory;
 
 public abstract class Sphere extends GO {
 	

@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.prospero.kite.model.Planet;
 import com.prospero.kite.model.Station;
 import com.prospero.kite.model.StationType;
-import com.prospero.kite.model3d.StationFactory;
+import com.prospero.kite.model.factory.StationFactory;
 import com.prospero.kite.screen.old3d.PlanetScreen3d;
 
 public class StationTypeSelectionMenuClickListener extends ClickListener {

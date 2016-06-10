@@ -1,7 +1,8 @@
-package com.prospero.kite.model3d;
+package com.prospero.kite.model.factory;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.prospero.kite.model.StationType;
 
 public class AssetFactory {
 
@@ -14,4 +15,9 @@ public class AssetFactory {
 		}
 		return assets.get(name, Texture.class);
 	}
+
+	public static Texture getStationImage(StationType type) {
+		return getTexture("images/ui/" + type.toString() + ".png");
+	}
+	
 }

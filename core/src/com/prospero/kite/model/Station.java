@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-import com.prospero.kite.model3d.ModelFactory;
+import com.prospero.kite.model.factory.ModelFactory;
 
 public class Station extends GO {
 

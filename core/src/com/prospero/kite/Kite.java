@@ -6,7 +6,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.prospero.kite.model.User;
-import com.prospero.kite.model3d.TextureFactory;
+import com.prospero.kite.model.factory.TextureFactory;
 import com.prospero.kite.screen.MainMenuScreen;
 
 public class Kite extends Game {

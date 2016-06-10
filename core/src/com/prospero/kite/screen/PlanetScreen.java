@@ -2,6 +2,7 @@ package com.prospero.kite.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,12 +19,16 @@ import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.prospero.kite.Kite;
 import com.prospero.kite.model.GO;
+import com.prospero.kite.screen.menu.BuildSelectionWindow;
 
 public class PlanetScreen extends ObjectScreen {
 
@@ -42,8 +47,11 @@ public class PlanetScreen extends ObjectScreen {
     private boolean mouseInside = false;
     private boolean mouseWasMoved = false;
 
-	public PlanetScreen(Kite game, GO obj) {
+    private final BuildSelectionWindow buildSelectionWindow;
+	public PlanetScreen(final Kite game, GO obj) {
 		super(game, obj);
+
+        //Gdx.input.setInputProcessor(stage);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -59,12 +67,27 @@ public class PlanetScreen extends ObjectScreen {
 
     	// ------ UI ---------------
 		Skin skin = game.getSkin();
-		Button b1 = new Button(new Image(new Texture("images/ui/build.png")), skin);
-		b1.setScale(0.25f);
-		b1.setSize(50f, 50f);
+		buildSelectionWindow = new BuildSelectionWindow("Select building", skin, this);
+		buildSelectionWindow.setVisible(false);
+		stage.addActor(buildSelectionWindow);
+
+		Texture t = new Texture("images/ui/build.png");
+		TextureRegion tr = new TextureRegion(t);
+		ImageButtonStyle style = new ImageButtonStyle(skin.get(ButtonStyle.class));
+		style.imageUp = new TextureRegionDrawable(tr);
+		style.imageDown = new TextureRegionDrawable(tr);
+		ImageButton b1 = new ImageButton(style);
+		b1.setSize(200f, 200f);
 		b1.setPosition(0, 0);
+		b1.addListener(new ClickListener() {
+	    	@Override
+	        public void clicked(InputEvent e, float x, float y) {
+	        	buildSelectionWindow.setVisible(!buildSelectionWindow.isVisible());
+	            Gdx.app.log("Click", "performed");
+	        }
+	    });		
 		stage.addActor(b1);
-        Gdx.input.setInputProcessor(this);
+        Gdx.input.setInputProcessor(new InputMultiplexer(stage, this));
 
         mousePosition = new Vector2();
 	}
@@ -98,7 +121,11 @@ public class PlanetScreen extends ObjectScreen {
 	@Override
 	public boolean keyDown(int keycode) {
 		if(keycode == Keys.BACK || keycode == Keys.ESCAPE){
-			game.setScreen(new SpaceSystemScreen(game, object.getParent()));
+			if (buildSelectionWindow.isVisible()) {
+				buildSelectionWindow.setVisible(false);
+			} else {
+				game.setScreen(new SpaceSystemScreen(game, object.getParent()));
+			}
 			return true;
 		 }
 		 return false;

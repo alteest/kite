@@ -1,4 +1,4 @@
-package com.prospero.kite.model3d;
+package com.prospero.kite.model.factory;
 
 import com.prospero.kite.model.Station;
 import com.prospero.kite.model.Station1;

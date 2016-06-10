@@ -3,7 +3,7 @@ package com.prospero.kite.model;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-import com.prospero.kite.model3d.ModelFactory;
+import com.prospero.kite.model.factory.ModelFactory;
 
 public class Station1 extends Station {
 	

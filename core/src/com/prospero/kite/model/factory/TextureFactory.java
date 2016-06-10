@@ -1,4 +1,4 @@
-package com.prospero.kite.model3d;
+package com.prospero.kite.model.factory;
 
 import java.util.HashMap;
 import java.util.Map;
