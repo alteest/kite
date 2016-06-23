@@ -19,6 +19,7 @@ public abstract class ObjectScreen implements Screen, InputProcessor {
 	public GO selectedObj = null;
 	
 	protected SpriteBatch batch = null;
+	protected Stage background = new Stage();
 	protected Stage stage = new Stage();
 	protected StringBuilder stringBuilder;
 	protected Label label;
@@ -28,7 +29,7 @@ public abstract class ObjectScreen implements Screen, InputProcessor {
 		batch = new SpriteBatch();
 		String backgroundFileName = getBackgroundFileName();
 		if (backgroundFileName != null) {
-			stage.addActor(new Background(backgroundFileName));
+			background.addActor(new Background(backgroundFileName));
 		}
 
 		stringBuilder = new StringBuilder();
@@ -58,6 +59,19 @@ public abstract class ObjectScreen implements Screen, InputProcessor {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if (background != null) {
+        	background.draw();
+        }
+       
+        ShapeRenderer renderer = new ShapeRenderer();
+        renderer.begin(ShapeType.Line);
+        object.draw(renderer, object);
+        renderer.end();
+        
+        batch.begin();
+        object.draw(batch, object);
+        batch.end();
+
         if (stringBuilder != null) {
         	stringBuilder.setLength(0);
         	stringBuilder.append(" FPS: ").append(Gdx.graphics.getFramesPerSecond());
@@ -69,15 +83,6 @@ public abstract class ObjectScreen implements Screen, InputProcessor {
         if (stage != null) {
         	stage.draw();
         }
-        
-        ShapeRenderer renderer = new ShapeRenderer();
-        renderer.begin(ShapeType.Line);
-        object.draw(renderer, object);
-        renderer.end();
-        
-        batch.begin();
-        object.draw(batch, object);
-        batch.end();
 	}		
 
 	@Override

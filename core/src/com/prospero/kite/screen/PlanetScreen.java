@@ -13,10 +13,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -28,6 +28,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.prospero.kite.Kite;
 import com.prospero.kite.model.GO;
+import com.prospero.kite.model.StationType;
+import com.prospero.kite.model.factory.AssetFactory;
 import com.prospero.kite.screen.menu.BuildSelectionWindow;
 
 public class PlanetScreen extends ObjectScreen {
@@ -48,23 +50,52 @@ public class PlanetScreen extends ObjectScreen {
     private boolean mouseWasMoved = false;
 
     private final BuildSelectionWindow buildSelectionWindow;
-	public PlanetScreen(final Kite game, GO obj) {
+    private StationType buildingType = StationType.Unknown;
+
+    public PlanetScreen(final Kite game, GO obj) {
 		super(game, obj);
 
         //Gdx.input.setInputProcessor(stage);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(150, 40, 0);
+        camera.position.set(300, 40, 0);
         camera.update();
-        tiledMap = new TmxMapLoader().load("data/a/map2.tmx");
+        /*tiledMap = new TmxMapLoader().load("data/a/map2.tmx");
         tiledMapNonSelected = new TmxMapLoader().load("data/a/map2.tmx");
         tiledMapRenderer = new IsometricTiledMapRenderer(tiledMap);
     	TiledMapTileSet tileSet = tiledMapNonSelected.getTileSets().getTileSet(0);
     	tile1 = tileSet.getTile(1);
     	tile2 = tileSet.getTile(2);
-    	tile3 = new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal("data/a/red_xoffset_0__yoffset_0.png"))));
+    	tile3 = new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal("data/a/red_xoffset_0__yoffset_0.png"))));*/
 
+        tile1 = new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal("images/images/tiles_01.png"))));
+    	tile2 = new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal("images/images/tiles_02.png"))));
+    	tile3 = new StaticTiledMapTile(new TextureRegion(new Texture(Gdx.files.internal("images/images/tiles_03.png"))));
+
+        tiledMap = new TmxMapLoader().load("data/a/map3.tmx");
+        tiledMapNonSelected = new TmxMapLoader().load("data/a/map3.tmx");
+        TiledMap [] maps = {tiledMap, tiledMapNonSelected};
+    	for (TiledMap map : maps) {
+    		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
+    		for (int i = 0 ; i < layer.getWidth(); i++) {
+    			for (int j = 0; j < layer.getHeight(); j++) {
+    				try {
+    					Cell cell = layer.getCell(i, j);
+    					if (cell == null) {
+    						cell = new Cell();
+    						layer.setCell(i, j, cell);
+    					}
+    					cell.setTile(tile1);
+    				} catch (NullPointerException e) {
+    					System.out.println("Init : " + Integer.toString(i) + " - " + Integer.toString(j));
+    				}
+    			}
+    		}
+    	}
+
+        tiledMapRenderer = new IsometricTiledMapRenderer(tiledMap);
+    	
     	// ------ UI ---------------
 		Skin skin = game.getSkin();
 		buildSelectionWindow = new BuildSelectionWindow("Select building", skin, this);
@@ -77,7 +108,7 @@ public class PlanetScreen extends ObjectScreen {
 		style.imageUp = new TextureRegionDrawable(tr);
 		style.imageDown = new TextureRegionDrawable(tr);
 		ImageButton b1 = new ImageButton(style);
-		b1.setSize(200f, 200f);
+		b1.setSize(Gdx.graphics.getWidth() / 5, Gdx.graphics.getWidth() / 5);
 		b1.setPosition(0, 0);
 		b1.addListener(new ClickListener() {
 	    	@Override
@@ -96,12 +127,22 @@ public class PlanetScreen extends ObjectScreen {
 	protected String getBackgroundFileName() {
 		return "images/bg3.jpg";
 	}
+
+	public void setBuildingType(StationType type) {
+		buildingType = type;
+	}
 	
 	@Override
 	public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        camera.update();
+        if (background != null) {
+        	background.draw();
+        }
 
+        tiledMapRenderer.setView(camera);
+        tiledMapRenderer.render();
         if (stringBuilder != null) {
         	stringBuilder.setLength(0);
         	stringBuilder.append(" FPS: ").append(Gdx.graphics.getFramesPerSecond());
@@ -113,9 +154,6 @@ public class PlanetScreen extends ObjectScreen {
         if (stage != null) {
         	stage.draw();
         }
-        camera.update();
-        tiledMapRenderer.setView(camera);
-        tiledMapRenderer.render();
 	}		
 
 	@Override
@@ -149,18 +187,30 @@ public class PlanetScreen extends ObjectScreen {
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button)
 	{
-	    position = worldToIso(x, y,  32,  16);
-    	TiledMapTileLayer layer = (TiledMapTileLayer) tiledMapNonSelected.getLayers().get(0);
-	    if ((position.x >= 0) && (position.y >= 0) && (position.x < layer.getWidth()) && (position.y < layer.getHeight())) {
-	    	mouseInside = true;
-    		mousePosition.set(position.x, position.y);
-	    } else {
-	    	mouseInside = false;
-	    	if (button == Input.Buttons.LEFT) {
-	    		mousePosition.set(x, y);
-	    	}
-	    }
-	    mouseButton = button;
+		TiledMapTileLayer layer = (TiledMapTileLayer) tiledMapNonSelected.getLayers().get(0);
+		position = worldToIso(x, y,  (int) layer.getTileWidth(), (int) layer.getTileHeight());
+		if (buildingType != StationType.Unknown) {
+			// We are in bulding mode
+			if (button == Input.Buttons.LEFT) {
+				StaticTiledMapTile tile = new StaticTiledMapTile(new TextureRegion(AssetFactory.getStationImage(buildingType)));
+				int posX, posY;
+				posX = Math.min(layer.getWidth() - 1, Math.max((int)position.x, 0));
+				posY = Math.min(layer.getHeight() - 1, Math.max((int)position.y, 0));
+				layer.getCell(posX, posY).setTile(tile);
+			}
+	    	buildingType = StationType.Unknown;
+		} else {
+			if ((position.x >= 0) && (position.y >= 0) && (position.x < layer.getWidth()) && (position.y < layer.getHeight())) {
+				mouseInside = true;
+				mousePosition.set(position.x, position.y);
+			} else {
+				mouseInside = false;
+				if (button == Input.Buttons.LEFT) {
+					mousePosition.set(x, y);
+				}
+			}
+			mouseButton = button;
+		}
 	    return false;
 	}
 
@@ -181,9 +231,9 @@ public class PlanetScreen extends ObjectScreen {
 	public boolean touchUp(int x, int y, int pointer, int button)
 	{
 		if (mouseInside && !mouseWasMoved) {
-			position = worldToIso(x, y,  32,  16);
+			TiledMapTileLayer layer = (TiledMapTileLayer) tiledMapNonSelected.getLayers().get(0);
+		    position = worldToIso(x, y,  (int) layer.getTileWidth(), (int) layer.getTileHeight());
 			if (((int) position.x == (int) mousePosition.x) && ((int) position.y == (int) mousePosition.y)) {
-				TiledMapTileLayer layer = (TiledMapTileLayer) tiledMapNonSelected.getLayers().get(0);
 				Cell cell = layer.getCell((int)position.x, (int)position.y);
 				try {
 					if (cell.getTile() == tile1) {
@@ -208,8 +258,8 @@ public class PlanetScreen extends ObjectScreen {
 	public boolean touchDragged(int x, int y, int pointer)
 	{
 		if (mouseInside) {
-		    position = worldToIso(x, y,  32,  16);
 	    	TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
+		    position = worldToIso(x, y,  (int) layer.getTileWidth(), (int) layer.getTileHeight());
 	    	position.x = (position.x < 0) ? 0 : position.x;
 	    	position.x = (position.x > layer.getWidth()) ? layer.getWidth() - 1 : position.x;
 	    	position.y = (position.y < 0) ? 0 : position.y;
@@ -252,6 +302,24 @@ public class PlanetScreen extends ObjectScreen {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean mouseMoved(int x, int y) {
+		if (buildingType != StationType.Unknown) {
+	    	TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
+		    position = worldToIso(x, y,  (int) layer.getTileWidth(), (int) layer.getTileHeight());
+		    
+		    StaticTiledMapTile tile = new StaticTiledMapTile(new TextureRegion(AssetFactory.getStationImage(buildingType)));
+	    	int posX, posY;
+	    	posX = Math.min(layer.getWidth() - 1, Math.max((int)position.x, 0));
+	    	posY = Math.min(layer.getHeight() - 1, Math.max((int)position.y, 0));
+
+	    	copyMap(tiledMapNonSelected, tiledMap);
+
+	    	layer.getCell(posX, posY).setTile(tile);
+		}
+		return false;
+	}
 	
 	private void copyMap(TiledMap source, TiledMap destination) {
     	TiledMapTileLayer layer1 = (TiledMapTileLayer) source.getLayers().get(0);
@@ -261,7 +329,7 @@ public class PlanetScreen extends ObjectScreen {
 	    		try {
 	    			layer2.getCell(i, j).setTile(layer1.getCell(i, j).getTile());
 	    		} catch (NullPointerException e) {
-	    			System.out.println(Integer.toString(i) + " - " + Integer.toString(j));
+	    			System.out.println("Copy : " + Integer.toString(i) + " - " + Integer.toString(j));
 	    		}
 	    	}
     	}

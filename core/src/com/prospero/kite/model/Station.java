@@ -1,15 +1,8 @@
 package com.prospero.kite.model;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g3d.Environment;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-import com.prospero.kite.model.factory.ModelFactory;
-
 public class Station extends GO {
 
-	ModelInstance orbit = null;
+	//ModelInstance orbit = null;
 	protected StationType type = StationType.Unknown;
 	
 	public Station(final String name, float distance, float direction, final float scale) {
@@ -39,5 +32,9 @@ public class Station extends GO {
 
 	public StationType getStationType() {
 		return type;
+	}
+	
+	public static String getStringImage() {
+		return "images/images/tiles_04.png";
 	}
 }

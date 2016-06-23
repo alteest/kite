@@ -1,10 +1,10 @@
 package com.prospero.kite.model;
 
-public class Station1 extends Station {
+public class Station3 extends Station {
 	
-	protected static String texture = "images/images/tiles_16.png";
+	protected static String texture = "images/images/tiles_14.png";
 	
-	public Station1(Station station) {
+	public Station3(Station station) {
 		super(station.name, station.distance, station.direction, station.scale);
 	}
 
